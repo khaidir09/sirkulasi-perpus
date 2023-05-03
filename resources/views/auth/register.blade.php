@@ -25,7 +25,7 @@
                         <!-- Site branding -->
                         <div class="shrink-0 mr-4">
                             <!-- Logo -->
-                            <a class="block" href="{{ route('login') }}" aria-label="Cruip">
+                            <a class="block" href="{{ route('home') }}" aria-label="Cruip">
                                 <img src="{{ asset('images/logo.png') }}" alt="">
                             </a>
                         </div>

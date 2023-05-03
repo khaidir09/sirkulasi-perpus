@@ -28,7 +28,7 @@
                         <header class="flex-1 flex mb-auto">
                             <div class="flex items-center justify-between h-16 md:h-20">
                                 <!-- Logo -->
-                                <a class="block group" href="{{ route('login') }}" aria-label="Cruip">
+                                <a class="block group" href="{{ route('home') }}" aria-label="Cruip">
                                     <img src="{{ asset('images/logo.png') }}" alt="">
                                 </a>
                             </div>

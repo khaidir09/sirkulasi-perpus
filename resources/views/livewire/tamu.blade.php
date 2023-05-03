@@ -1,9 +1,44 @@
-<div class="bg-white shadow-lg rounded-sm border border-slate-200 mb-8">
-    <header class="px-5 py-4">
-        <h2 class="font-semibold text-slate-800">Pengajuan Saya <span class="text-slate-400 font-medium">{{ $count }}</span></h2>
-    </header>
-    <div x-data="handleSelect">
+<div>
+    <!-- Page header -->
+    <div class="sm:flex sm:justify-between sm:items-center mb-3">
 
+        <!-- Left: Title -->
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Daftar Tamu ✨</h1>
+        </div>
+
+        <!-- Right: Actions -->
+        <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+
+            <!-- Search form -->
+            <x-search-form placeholder="Cari berdasarkan nama anggota" />
+
+            <!-- Create guest button -->
+            <a href="{{ route('tamu.create') }}" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
+                    <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
+                </svg>
+                <span class="hidden xs:block ml-2">Tambah Tamu</span>
+            </a>                            
+            
+        </div>
+
+    </div>
+
+    <div class="sm:flex sm:justify-between sm:items-center">
+        <select wire:model="paginate" id="" class="form-select">
+            <option value="10">10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+        </select>
+    </div>
+
+    <!-- Table -->
+    <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5">
+        <header class="px-5 py-4">
+            <h2 class="font-semibold text-slate-800">Semua Daftar Tamu <span class="text-slate-400 font-medium">{{ $guest_count }}</span></h2>
+        </header>
         <!-- Table -->
         <div class="overflow-x-auto">
             <table class="table-auto w-full">
@@ -14,16 +49,13 @@
                             <div class="font-semibold text-left">No.</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Judul Buku</div>
+                            <div class="font-semibold text-left">Nama anggota</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Penerbit</div>
+                            <div class="font-semibold text-left">Tanggal berkunjung</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Tanggal Pengajuan</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Status</div>
+                            <div class="font-semibold text-left">Buku yang dibaca</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>
@@ -36,26 +68,23 @@
                     @php
                         $i = 1;
                     @endphp
-                    @foreach($wishlists as $wishlist)                  
+                    @foreach($guests as $guest)                  
                         <tr>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium text-sky-500">{{ $i++ }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $wishlist->judul_buku }}</div>
+                                <div class="font-medium">{{ $guest->user->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $wishlist->penerbit }}</div>
+                                <div class="font-medium">{{ \Carbon\Carbon::parse($guest->created_at)->format('d/m/Y') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div>{{ \Carbon\Carbon::parse($wishlist->created_at)->format('d/m/Y') }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium text-slate-800">{{ $wishlist->status }}</div>
+                                <div class="font-medium">{{ $guest->book->judul }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
-                                    <a href="{{ route('pengajuan.edit', $wishlist->id) }}" class="text-slate-400 hover:text-slate-500 rounded-full">
+                                    <a href="{{ route('tamu.edit', $guest->id) }}" class="text-slate-400 hover:text-slate-500 rounded-full">
                                         <span class="sr-only">Edit</span>
                                         <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
                                             <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
@@ -121,7 +150,7 @@
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
                                                             <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Cancel</button>
-                                                            <form action="{{ route('pengajuan.destroy', $wishlist->id) }}" method="post">
+                                                            <form action="{{ route('tamu.destroy', $guest->id) }}" method="post">
                                                                 @method('delete')
                                                                 @csrf
                                                                 <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
@@ -141,5 +170,10 @@
             </table>
 
         </div>
+    </div>
+    
+    <!-- Pagination -->
+    <div class="mt-8">
+        {{$guests->links()}}
     </div>
 </div>

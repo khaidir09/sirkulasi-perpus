@@ -1,11 +1,11 @@
 @section('title')
-    Data Anggota
+    Bonus Karyawan
 @endsection
 
-<x-app-layout>
+<x-toko-layout>
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
-        <livewire:anggota></livewire:anggota>
+        <livewire:gaji-data></livewire:gaji-data>
 
     </div>
-</x-app-layout>
+</x-toko-layout>
