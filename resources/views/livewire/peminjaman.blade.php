@@ -11,7 +11,7 @@
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
             <!-- Search form -->
-            <x-search-form placeholder="Cari berdasarkan judul buku" />
+            {{-- <x-search-form placeholder="Cari berdasarkan judul buku" /> --}}
 
             <!-- Create loan button -->
             <a href="{{ route('peminjaman.create') }}" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">

@@ -11,7 +11,7 @@
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
             <!-- Search form -->
-            <x-search-form placeholder="Cari berdasarkan nama anggota" />
+            {{-- <x-search-form placeholder="Cari berdasarkan nama anggota" /> --}}
 
             <!-- Create guest button -->
             <a href="{{ route('tamu.create') }}" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
