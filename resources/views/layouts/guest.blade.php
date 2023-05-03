@@ -27,7 +27,7 @@
                         <div class="shrink-0 mr-4">
                             <!-- Logo -->
                             <a class="block group" href="{{ route('home') }}" aria-label="Cruip">
-                                <img src="{{ asset('images/logo-gambar.png') }}" alt="" class="h-12">
+                                <img src="{{ asset('images/logo_sekolah.png') }}" alt="" class="h-12">
                             </a>
                         </div>
 
