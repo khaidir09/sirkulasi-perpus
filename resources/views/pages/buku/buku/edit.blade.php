@@ -41,7 +41,7 @@
                                 <!-- Start -->
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="nomor_induk">Nomor Induk</label>
-                                    <input id="nomor_induk" name="nomor_induk" class="form-input w-full" type="number" value="{{ $item->nomor_induk }}" />
+                                    <input id="nomor_induk" name="nomor_induk" class="form-input w-full" type="text" value="{{ $item->nomor_induk }}" />
                                 </div>
                                 <!-- End -->
                             </div>
