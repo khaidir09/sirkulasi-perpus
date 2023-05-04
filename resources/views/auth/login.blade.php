@@ -29,7 +29,7 @@
                             <div class="flex items-center justify-between h-16 md:h-20">
                                 <!-- Logo -->
                                 <a class="block group" href="{{ route('home') }}" aria-label="Cruip">
-                                    <img src="{{ asset('images/logo.png') }}" alt="">
+                                    <img src="{{ asset('images/logo-gambar.png') }}" alt="" class="h-12">
                                 </a>
                             </div>
                         </header>
