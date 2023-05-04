@@ -20,15 +20,9 @@
                             </svg>
                             SMK Negeri 1 Amuntai
                         </span>.</h1>
-                        <!-- Buttons -->
-                        <div class="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4 mb-12 md:mb-20 mt-10">
-                            <div>
-                                <a class="btn text-white bg-blue-500 hover:bg-blue-600 w-full shadow-sm" href="{{ route('register') }}">Daftar Anggota</a>
-                            </div>
-                            <div>
-                                <a class="btn text-gray-600 bg-white hover:bg-blue-100 hover:text-blue-600 w-full shadow-sm" href="{{ route('login') }}">Masuk</a>
-                            </div>
-                        </div>
+                        <p class="text-xl text-gray-500 mb-10">
+                            Buat akun keanggotaan kamu untuk dapat menikmati layanan pencarian koleksi-koleksi perpustakaan dengan lebih mudah dan mendapatkan informasi koleksi terbaru dari kami.
+                        </p>
                         <!-- Stats -->
                         <div class="inline-flex items-center space-x-4 md:space-x-6">
                             <div>
