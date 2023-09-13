@@ -3,8 +3,8 @@
 test('mengarahkan ke halaman dashboard jika menggunakan akun yang memiliki role Anggota', function () {
 
     $response = $this->post('/login', [
-        'email' => 'hpuspasari@gmail.com',
-        'password' => 'password',
+        'email' => 'aisyah@gmail.com',
+        'password' => '12345678',
     ]);
 
     $response->assertStatus(302);
