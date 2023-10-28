@@ -21,7 +21,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('anggota.update', $item->id) }}" method="post">
+                <form action="{{ route('list-anggota.update', $item->id) }}" method="post">
                     @method('PUT')
                     @csrf
                     <!-- Input Types -->

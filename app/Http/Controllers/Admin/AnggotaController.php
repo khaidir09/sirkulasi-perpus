@@ -59,7 +59,7 @@ class AnggotaController extends Controller
 
         Alert::success('Berhasil', 'Data anggota berhasil ditambahkan');
 
-        return redirect()->route('anggota.index');
+        return redirect()->route('list-anggota.index');
     }
 
     /**
@@ -115,7 +115,7 @@ class AnggotaController extends Controller
 
         $item->update($data);
 
-        return redirect()->route('anggota.index');
+        return redirect()->route('list-anggota.index');
     }
 
     /**
@@ -132,6 +132,6 @@ class AnggotaController extends Controller
 
         Alert::success('Berhasil', 'Data anggota berhasil dihapus');
 
-        return redirect()->route('anggota.index');
+        return redirect()->route('list-anggota.index');
     }
 }

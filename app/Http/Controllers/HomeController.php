@@ -12,7 +12,7 @@ class HomeController extends Controller
     {
         $koleksi = Book::all()->count();
         $eksemplar = Book::all()->sum('jumlah');
-        $anggota = User::where('role', 'Anggota')->count();
+        $anggota = User::where('role', 'Anggota')->where('status', 'Terverifikasi')->count();
         return view('pages/home', compact('koleksi', 'eksemplar', 'anggota'));
     }
 }

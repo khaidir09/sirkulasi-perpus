@@ -26,7 +26,7 @@ class DashboardController extends Controller
         $dipinjam = Loan::where('status', 'Belum Dikembalikan')->count();
         $stokbuku = Book::all()->sum('jumlah');
         $wishlist = Wishlist::count();
-        $anggota = User::where('role', 'Anggota')->count();
+        $anggota = User::where('role', 'Anggota')->where('status', 'Terverifikasi')->count();
         $koleksibuku = Book::count();
 
         return view('pages/dashboard/dashboard', compact('stokbuku', 'dipinjam', 'wishlist', 'koleksibuku', 'anggota'));

@@ -10,6 +10,7 @@ use App\Http\Controllers\PengajuanBukuController;
 use App\Http\Controllers\Admin\BukuController as AdminBukuController;
 use App\Http\Controllers\Admin\TamuController as AdminTamuController;
 use App\Http\Controllers\Admin\AnggotaController as AdminAnggotaController;
+use App\Http\Controllers\Admin\PendaftaranAnggotaController as AdminPendaftaranAnggotaController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\PeminjamanController as AdminPeminjamanController;
 use App\Http\Controllers\Admin\PenerbitBukuController as AdminPenerbitBukuController;
@@ -29,7 +30,8 @@ use App\Http\Controllers\Admin\KlasifikasiBukuController as AdminKlasifikasiBuku
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
-Route::resource('anggota', AdminAnggotaController::class);
+Route::resource('anggota/list-anggota', AdminAnggotaController::class);
+Route::resource('anggota/pendaftaran', AdminPendaftaranAnggotaController::class);
 Route::resource('klasifikasi', AdminKlasifikasiBukuController::class);
 Route::resource('penerbit', AdminPenerbitBukuController::class);
 Route::resource('buku', AdminBukuController::class);

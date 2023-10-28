@@ -38,7 +38,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'tgl_lahir',
         'nama_ibu',
         'nomor_hp_ortu',
-        'perjanjian'
+        'perjanjian',
+        'status'
     ];
 
     /**

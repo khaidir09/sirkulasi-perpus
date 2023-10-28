@@ -21,7 +21,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('anggota.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('list-anggota.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input id="perjanjian" name="perjanjian" class="form-input w-full" type="hidden" value="Bersedia Menerima Perjanjian" />
                     <!-- Input Types -->

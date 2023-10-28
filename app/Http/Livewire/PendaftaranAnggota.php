@@ -6,7 +6,7 @@ use App\Models\User;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Anggota extends Component
+class PendaftaranAnggota extends Component
 {
     use WithPagination;
 
@@ -27,12 +27,12 @@ class Anggota extends Component
 
     public function render()
     {
-        $members_count = User::where('role', 'Anggota')->where('status', 'Terverifikasi')->count();
-        return view('livewire.anggota', [
-            'members_count' => $members_count,
+        $registers_count = User::where('role', 'Anggota')->where('status', null)->count();
+        return view('livewire.pendaftaran-anggota', [
+            'registers_count' => $registers_count,
             'members' => $this->search === null ?
-                User::latest()->where('role', 'Anggota')->where('status', 'Terverifikasi')->paginate($this->paginate) :
-                User::latest()->where('role', 'Anggota')->where('status', 'Terverifikasi')->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                User::latest()->where('role', 'Anggota')->where('status', null)->paginate($this->paginate) :
+                User::latest()->where('role', 'Anggota')->where('status', null)->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }

@@ -4,22 +4,14 @@
 
         <!-- Left: Title -->
         <div class="mb-4 sm:mb-0">
-            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Data Anggota ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Data Pendaftaran Anggota ✨</h1>
         </div>
 
         <!-- Right: Actions -->
         <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
             <!-- Search form -->
-            <x-search-form placeholder="Nama anggota" />
-
-            <!-- Add customer button -->
-            <a href="{{ route('list-anggota.create') }}" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                <svg class="w-4 h-4 fill-current opacity-50 shrink-0" viewBox="0 0 16 16">
-                    <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z" />
-                </svg>
-                <span class="hidden xs:block ml-2">Tambah Anggota</span>
-            </a>                            
+            <x-search-form placeholder="Nama anggota" />                          
             
         </div>
 
@@ -37,7 +29,7 @@
     <!-- Table -->
     <div class="bg-white shadow-lg rounded-sm border border-slate-200 mt-5">
         <header class="px-5 py-4">
-            <h2 class="font-semibold text-slate-800">Semua Anggota <span class="text-slate-400 font-medium">{{ $members_count }}</span></h2>
+            <h2 class="font-semibold text-slate-800">Semua Pendaftaran <span class="text-slate-400 font-medium">{{ $registers_count }}</span></h2>
         </header>
 
         <!-- Table -->
@@ -53,16 +45,19 @@
                             <div class="font-semibold text-left">Nama</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">NISN</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Jurusan</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Kelas</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Nomor HP</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Alamat</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Jumlah Peminjaman</div>
+                            <div class="font-semibold text-left">Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>
@@ -84,25 +79,28 @@
                                 <div class="text-left">{{ $user->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="text-left">{{ $user->nisn }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="text-left">{{ $user->competency->name }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="text-left">{{ $user->classroom->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="text-left">{{ $user->nomor_hp }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left">{{ $user->alamat }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left"> 0 </div>
+                                <div class="text-left">
+                                    @if ($user->status != null)
+                                        {{ $user->status }}
+                                    @else
+                                        Belum Diverifikasi
+                                    @endif
+                                </div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
-                                    <a href="{{ route('list-anggota.edit', $user->id) }}" class="text-slate-400 hover:text-slate-500 rounded-full">
-                                        <span class="sr-only">Edit</span>
-                                        <svg class="w-8 h-8 fill-current" viewBox="0 0 32 32">
-                                            <path d="M19.7 8.3c-.4-.4-1-.4-1.4 0l-10 10c-.2.2-.3.4-.3.7v4c0 .6.4 1 1 1h4c.3 0 .5-.1.7-.3l10-10c.4-.4.4-1 0-1.4l-4-4zM12.6 22H10v-2.6l6-6 2.6 2.6-6 6zm7.4-7.4L17.4 12l1.6-1.6 2.6 2.6-1.6 1.6z" />
-                                        </svg>
-                                    </a>
                                     <!-- Start -->
                                     <div x-data="{ modalOpen: false }">
                                         <button class="text-rose-500 hover:text-rose-600 rounded-full" @click.prevent="modalOpen = true" aria-controls="danger-modal">
@@ -163,7 +161,7 @@
                                                         <!-- Modal footer -->
                                                         <div class="flex flex-wrap justify-end space-x-2">
                                                             <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
-                                                            <form action="{{ route('list-anggota.destroy', $user->id) }}" method="post">
+                                                            <form action="{{ route('pendaftaran.destroy', $user->id) }}" method="post">
                                                                 @method('delete')
                                                                 @csrf
                                                                 <button class="btn-sm bg-rose-500 hover:bg-rose-600 text-white">Ya, Hapus</button>
