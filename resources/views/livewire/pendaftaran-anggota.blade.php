@@ -91,16 +91,25 @@
                                 <div class="text-left">{{ $user->nomor_hp }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left">
-                                    @if ($user->status != null)
-                                        {{ $user->status }}
-                                    @else
-                                        Belum Diverifikasi
-                                    @endif
-                                </div>
+                                @if ($user->status === 'Belum Diverifikasi')
+                                    <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-amber-500 text-white">Belum Diverifikasi</div>
+                                @elseif ($user->status === 'Terverifikasi')
+                                    <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-blue-500 text-white">Terverifikasi</div>
+                                @else
+                                    <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-red-500 text-white">Ditolak</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
+                                    <a href="{{ route('pendaftaran.show', $user->id) }}">
+                                        <button class="text-slate-400 hover:text-slate-500 rounded-full">
+                                            <span class="sr-only">Lihat</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                        </button>
+                                    </a>
                                     <!-- Start -->
                                     <div x-data="{ modalOpen: false }">
                                         <button class="text-rose-500 hover:text-rose-600 rounded-full" @click.prevent="modalOpen = true" aria-controls="danger-modal">

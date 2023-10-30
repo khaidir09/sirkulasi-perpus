@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\UserRequest;
+use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class PendaftaranAnggotaController extends Controller
@@ -35,7 +35,7 @@ class PendaftaranAnggotaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -48,7 +48,11 @@ class PendaftaranAnggotaController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = User::findOrFail($id);
+
+        return view('pages.pendaftaran-anggota.detail', [
+            'item' => $item,
+        ]);
     }
 
     /**
@@ -69,9 +73,31 @@ class PendaftaranAnggotaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $item = User::findOrFail($id);
+
+        $item->update($data);
+
+        // Transaction create
+        // $item->update([
+        //     'name' => $request->name,
+        //     'nisn' => $request->nisn,
+        //     'alamat' => $request->alamat,
+        //     'tempat_lahir' => $request->tempat_lahir,
+        //     'tgl_lahir' => $request->tgl_lahir,
+        //     'nomor_hp' => $request->nomor_hp,
+        //     'nomor_hp_ortu' => $request->nomor_hp_ortu,
+        //     'nama_ibu' => $request->nama_ibu,
+        //     'competencies_id' => $request->competencies_id,
+        //     'class_rooms_id' => $request->class_rooms_id,
+        //     'email' => $request->email,
+        //     'status' => $request->status
+        // ]);
+
+        return redirect()->route('pendaftaran.index');
     }
 
     /**

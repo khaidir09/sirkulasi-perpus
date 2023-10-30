@@ -32,6 +32,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'role',
         'class_rooms_id',
         'competencies_id',
+        'nisn',
         'nomor_hp',
         'alamat',
         'tempat_lahir',
@@ -39,7 +40,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'nama_ibu',
         'nomor_hp_ortu',
         'perjanjian',
-        'status'
+        'status',
+        'created_by'
     ];
 
     /**

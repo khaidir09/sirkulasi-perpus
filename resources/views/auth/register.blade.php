@@ -83,10 +83,16 @@
                                         <!-- Form -->
                                         <form method="POST" action="{{ route('register') }}">
                                             @csrf
+                                            <input type="hidden" name="status" value="Belum Diverifikasi">
+                                            <input type="hidden" name="created_by" value="Website">
                                             <div class="space-y-4">
                                                 <div>
                                                     <label class="block text-sm text-slate-600 font-medium mb-1" for="name">Nama Lengkap <span class="text-rose-500">*</span></label>
                                                     <input id="name" name="name" :value="old('name')" class="form-input text-sm py-2 w-full" type="name" required autocomplete="name" />
+                                                </div>
+                                                <div>
+                                                    <label class="block text-sm text-slate-600 font-medium mb-1" for="nisn">Nomor Induk Siswa Nasional (NISN) <span class="text-rose-500">*</span></label>
+                                                    <input id="nisn" name="nisn" class="form-input text-sm py-2 w-full" type="number" required />
                                                 </div>
                                                 <div>
                                                     <label class="block text-sm text-slate-600 font-medium mb-1" for="alamat">Alamat <span class="text-rose-500">*</span></label>
@@ -162,7 +168,7 @@
                                                     Daftar <span class="tracking-normal text-sky-300 group-hover:translate-x-0.5 transition-transform duration-150 ease-in-out ml-1">-&gt;</span>
                                                 </button>
                                             </div>
-                                            <x-jet-validation-errors class="mt-4" />  
+                                            <x-jet-validation-errors class="mt-4" />
                                         </form>
 
                                     </div>

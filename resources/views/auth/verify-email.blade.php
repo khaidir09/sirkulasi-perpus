@@ -1,8 +1,8 @@
 <x-authentication-layout>
     @include('sweetalert::alert')
     <h1 class="text-3xl text-slate-800 font-bold mb-6">{{ __('Verifikasi email kamu') }} ✨</h1>
-    <div>
-        {{ __('Terima kasih sudah mendaftar menjadi anggota melalui web program sirkulasi perpustakaan SMK Negeri 1 Amuntai ini! Sebelum memulai menikmati layanan ini, harap verifikasi dahulu email kamu dengan mengklik tombol verifikasi pada email yang baru saja kami kirimkan. Jika kamu tidak menerima email verifikasi, silahkan klik tombol kirim ulang dibawah agar kami dapat mengirim kembali email verifikasinya. Terima kasih!') }}
+    <div class="text-justify">
+        {{ __('Terima kasih sudah mendaftar menjadi anggota melalui web aplikasi perpustakaan SMK Negeri 1 Amuntai ini! Harap verifikasi dahulu email kamu dengan mengklik tombol verifikasi pada email yang baru saja kami kirimkan, kemudian tunggu Pustakawan memverifikasi pendaftaran kamu. Jika kamu tidak menerima email verifikasi, silahkan klik tombol kirim ulang dibawah agar kami dapat mengirim kembali email verifikasinya. Terima kasih!') }}
     </div>
 
     @if (session('status') == 'verification-link-sent')

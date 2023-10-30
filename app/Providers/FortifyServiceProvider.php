@@ -75,7 +75,6 @@ class FortifyServiceProvider extends ServiceProvider
         });
 
         Fortify::verifyEmailView(function () {
-            Alert::success('Berhasil', 'Anda telah terdaftar menjadi anggota');
             return view('auth.verify-email');
         });
     }

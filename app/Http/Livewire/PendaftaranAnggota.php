@@ -27,12 +27,12 @@ class PendaftaranAnggota extends Component
 
     public function render()
     {
-        $registers_count = User::where('role', 'Anggota')->where('status', null)->count();
+        $registers_count = User::where('role', 'Anggota')->where('created_by', 'Website')->count();
         return view('livewire.pendaftaran-anggota', [
             'registers_count' => $registers_count,
             'members' => $this->search === null ?
-                User::latest()->where('role', 'Anggota')->where('status', null)->paginate($this->paginate) :
-                User::latest()->where('role', 'Anggota')->where('status', null)->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
+                User::latest()->where('role', 'Anggota')->where('created_by', 'Website')->paginate($this->paginate) :
+                User::latest()->where('role', 'Anggota')->where('created_by', 'Website')->where('name', 'like', '%' . $this->search . '%')->paginate($this->paginate)
         ]);
     }
 }
