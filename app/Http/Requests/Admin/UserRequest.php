@@ -33,12 +33,15 @@ class UserRequest extends FormRequest
             'class_rooms_id' => [
                 'exists:class_rooms,id'
             ],
+            'nisn' => 'numeric|digits:10',
             'nomor_hp' => 'max:50',
             'alamat' => 'max:255',
             'tempat_lahir' => 'max:255',
             'tgl_lahir' => 'date',
             'nama_ibu' => 'required|max:100',
             'nomor_hp_ortu' => 'max:50',
+            'status' => 'max:50',
+            'created_by' => 'max:50',
         ];
     }
 }
