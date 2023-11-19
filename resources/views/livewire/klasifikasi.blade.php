@@ -68,7 +68,7 @@
                         @foreach($classifications as $classification)                  
                             <tr>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium text-sky-500">{{ $i++ }}</div>
+                                    <div class="font-medium">{{ $i++ }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                     <div class="font-medium text-sky-500">{{ $classification->kode }}</div>
@@ -143,7 +143,7 @@
                                                             </div>
                                                             <!-- Modal footer -->
                                                             <div class="flex flex-wrap justify-end space-x-2">
-                                                                <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Cancel</button>
+                                                                <button class="btn-sm border-slate-200 hover:border-slate-300 text-slate-600" @click="modalOpen = false">Batal</button>
                                                                 <form action="{{ route('klasifikasi.destroy', $classification->id) }}" method="post">
                                                                     @method('delete')
                                                                     @csrf
