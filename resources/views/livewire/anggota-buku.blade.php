@@ -49,6 +49,9 @@
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Ketersediaan Buku</div>
                         </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Aksi</div>
+                        </th>
                     </tr>
                 </thead>
                 <!-- Table body -->
@@ -70,6 +73,11 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ $book->jumlah - $book->loan->count() }}</div>
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <a href="{{ route('konfirmasi-booking-buku', $book->id) }}" class="font-medium rounded-full text-center px-2.5 py-1 bg-blue-500 text-white">
+                                Booking
+                                </button>
                             </td>
                         </tr>
                     @endforeach

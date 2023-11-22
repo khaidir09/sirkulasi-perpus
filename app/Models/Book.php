@@ -13,6 +13,7 @@ class Book extends Model
         'judul',
         'nomor_induk',
         'jumlah',
+        'ketersediaan',
         'publishers_id',
         'classifications_id',
         'tahun_terbit',

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AkunSayaController;
 use App\Http\Controllers\CariBukuController;
+use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengajuanBukuController;
 use App\Http\Controllers\Admin\BukuController as AdminBukuController;
@@ -17,6 +18,7 @@ use App\Http\Controllers\Admin\BookingBukuController as AdminBookingBukuControll
 use App\Http\Controllers\Admin\PenerbitBukuController as AdminPenerbitBukuController;
 use App\Http\Controllers\Admin\PengajuanBukuController as AdminPengajuanBukuController;
 use App\Http\Controllers\Admin\KlasifikasiBukuController as AdminKlasifikasiBukuController;
+use App\Http\Controllers\RiwayatBookingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,7 +51,10 @@ Route::middleware('ensureAnggotaRole:Anggota', 'verified')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/cari-buku', [CariBukuController::class, 'index'])->name('cari-buku');
+    Route::get('/cari-buku/{id}', [CariBukuController::class, 'show'])->name('konfirmasi-booking-buku');
+    Route::post('/cari-buku{id}', [BookingController::class, 'store'])->name('kirim-booking');
     Route::get('/akun-saya', [AkunSayaController::class, 'akunsaya'])->name('akun-saya');
     Route::post('/akun-saya/{redirect}', [AkunSayaController::class, 'update'])->name('akun-saya-update');
     Route::resource('pengajuan', PengajuanBukuController::class);
+    Route::resource('riwayat-booking', RiwayatBookingController::class);
 });

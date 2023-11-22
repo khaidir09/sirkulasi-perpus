@@ -13,4 +13,13 @@ class CariBukuController extends Controller
         $books_count = Book::all()->count();
         return view('pages/cari-buku', compact('books', 'books_count'));
     }
+
+    public function show($id)
+    {
+        $item = Book::findOrFail($id);
+
+        return view('pages.konfirmasi-booking-buku', [
+            'item' => $item
+        ]);
+    }
 }
