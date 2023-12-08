@@ -42,7 +42,11 @@
                                 <div>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</div>
                             </td>
                             <td class="p-2">
-                                <div>{{ $item->status }}</div>
+                                @if ($item->status != 'Sudah dikembalikan')
+                                    <div>{{ $item->status }}</div>
+                                @else
+                                    <div>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</div>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

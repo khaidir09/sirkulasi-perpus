@@ -35,7 +35,7 @@
     <hr>
     
     <div class="text-center py-3">
-        <h5 class="text-uppercase">LAPORAN PENAMBAHAN JUMLAH BUKU PERPUSTAKAAN SMK NEGERI 1 AMUNTAI <br> PERIODE BULAN <?= date('F Y')?> </h5>
+        <h5 class="text-uppercase">LAPORAN PENAMBAHAN JUMLAH BUKU PERPUSTAKAAN SMK NEGERI 1 AMUNTAI <br> PERIODE BULAN {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('F Y') }} </h5>
     </div>
 
     <table class="table table-bordered" style="font-size: 12px;">

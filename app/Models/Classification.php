@@ -13,4 +13,9 @@ class Classification extends Model
         'name',
         'kode'
     ];
+
+    public function classification()
+    {
+        return $this->hasMany(Book::class, 'classifications_id', 'id');
+    }
 }

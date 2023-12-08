@@ -31,6 +31,7 @@ class LoanRequest extends FormRequest
                 'exists:books,id'
             ],
             'status' => 'max:255',
+            'foto_bukti' => 'required|image|mimes:jpeg,png,jpg|max:2048',
         ];
     }
 }

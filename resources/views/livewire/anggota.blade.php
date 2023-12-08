@@ -87,7 +87,7 @@
                                 <div class="text-left">{{ $user->nomor_hp }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left"> 0 </div>
+                                <div class="text-left">{{ $user->relasiPeminjaman->sum('kuantitas') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">

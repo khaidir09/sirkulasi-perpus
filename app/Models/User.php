@@ -83,4 +83,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(ClassRoom::class, 'class_rooms_id', 'id');
     }
+
+    public function relasiPeminjaman()
+    {
+        return $this->hasMany(Loan::class, 'users_id', 'id');
+    }
 }

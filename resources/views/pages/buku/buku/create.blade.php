@@ -1,4 +1,4 @@
-<x-app-layout background="bg-white">
+<x-app-layout>
     <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
 
         <!-- Page header -->
@@ -98,7 +98,7 @@
                                 <!-- Start -->
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="asal">Asal</label>
-                                    <input id="asal" name="asal" class="form-input w-full" type="text" required />
+                                    <input id="asal" name="asal" class="form-input w-full" type="text" placeholder="Beli / Hibah" required />
                                 </div>
                                 <!-- End -->
                             </div>

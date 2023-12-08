@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <title>Laporan Jumlah Buku Perpustakaan SMK Negeri 1 Amuntai</title>
+    <title>Laporan Jumlah Buku Dikembalikan Perpustakaan SMK Negeri 1 Amuntai</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -35,30 +35,27 @@
     <hr>
     
     <div class="text-center py-3">
-        <h5 class="text-uppercase">DAFTAR JUMLAH BUKU YANG DIMILIKI PERPUSTAKAAN SMK NEGERI 1 AMUNTAI <br> PERIODE BULAN {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('F Y') }}   </h5>
+        <h5 class="text-uppercase">Laporan Buku Perpustakaan SMKN 1 Amuntai yang Dikembalikan <br> Periode Bulan {{ \Carbon\Carbon::now()->locale('id')->translatedFormat('F Y') }} </h5>
     </div>
 
-    <table class="table table-bordered" style="font-size: 12px;">
+    <table class="table table-bordered text-center" style="font-size: 12px;">
         <thead class="thead-dark">
             <tr>
             <th scope="col">No.</th>
             <th scope="col">Klasifikasi</th>
-            <th scope="col">Judul</th>
-            <th scope="col">Eksemplar</th>
-            <th scope="col">Ket.</th>
+            <th scope="col">Jumlah</th>
             </tr>
         </thead>
         <tbody>
             @php
                 $i = 1
             @endphp
-			@foreach($books as $item)
+			@foreach($summary as $item)
 			<tr>
                 <td>{{$i++}}</td>
-                <td>{{$item->classification->name}}</td>
-                <td>{{$item->judul}}</td>
-                <td>{{$item->jumlah}}</td>
-                <td></td>
+                <td>{{ $item['klasifikasi'] }}</td>
+                <td>{{ $item['total_peminjaman'] }}</td>
+                {{-- <td>{{$item->jumlah}}</td> --}}
 			</tr>
 			@endforeach
         </tbody>

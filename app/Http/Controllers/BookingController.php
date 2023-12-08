@@ -59,7 +59,7 @@ class BookingController extends Controller
             'status' => $status
         ]);
 
-        return redirect()->route('booking.index');
+        return redirect()->route('cari-buku');
     }
 
     /**

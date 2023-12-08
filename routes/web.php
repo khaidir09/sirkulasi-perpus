@@ -40,12 +40,15 @@ Route::resource('buku/penerbit', AdminPenerbitBukuController::class);
 Route::resource('buku/buku', AdminBukuController::class);
 Route::resource('peminjaman/peminjaman', AdminPeminjamanController::class);
 Route::resource('peminjaman/booking', AdminBookingBukuController::class);
+Route::post('peminjaman/confirm-booking/{id}', [AdminBookingBukuController::class, 'confirmBooking'])->name('konfirmasi-booking');
 Route::get('peminjaman/status/{id}', [AdminPeminjamanController::class, 'status'])->name('ubah-status-peminjaman');
 Route::resource('tamu', AdminTamuController::class);
 Route::resource('daftar-pengajuan', AdminPengajuanBukuController::class);
 
 Route::get('laporan', [AdminBukuController::class, 'cetak'])->name('cetak-jumlah-buku');
-Route::get('laporanpenambahan', [AdminBukuController::class, 'cetakpenambahan'])->name('cetak-penambahan-jumlah-buku');
+Route::get('laporan-penambahan', [AdminBukuController::class, 'cetakpenambahan'])->name('cetak-penambahan-jumlah-buku');
+Route::get('laporan-dipinjam', [AdminBukuController::class, 'cetakdipinjam'])->name('cetak-jumlah-buku-dipinjam');
+Route::get('laporan-dikembalikan', [AdminBukuController::class, 'cetakdikembalikan'])->name('cetak-jumlah-buku-dikembalikan');
 
 Route::middleware('ensureAnggotaRole:Anggota', 'verified')->group(function () {
 

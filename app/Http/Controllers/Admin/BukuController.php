@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\Book;
+use App\Models\Loan;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use App\Models\Classification;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BookRequest;
-use App\Models\Loan;
 
 class BukuController extends Controller
 {
@@ -51,16 +53,16 @@ class BukuController extends Controller
 
     public function cetakpenambahan()
     {
-        $jumlahkaryaumum = Book::with('classification')->where('classifications_id', 1)->count();
-        $jumlahbukukaryaumum = Book::with('classification')->where('classifications_id', 1)->sum('jumlah');
-        $jumlahfilsafat = Book::with('classification')->where('classifications_id', 2)->count();
-        $jumlahbukufilsafat = Book::with('classification')->where('classifications_id', 2)->sum('jumlah');
-        $jumlahagama = Book::with('classification')->where('classifications_id', 3)->count();
-        $jumlahbukuagama = Book::with('classification')->where('classifications_id', 3)->sum('jumlah');
-        $jumlahilmusosial = Book::with('classification')->where('classifications_id', 4)->count();
-        $jumlahbukuilmusosial = Book::with('classification')->where('classifications_id', 4)->sum('jumlah');
-        $jumlahbahasa = Book::with('classification')->where('classifications_id', 5)->count();
-        $jumlahbukubahasa = Book::with('classification')->where('classifications_id', 5)->sum('jumlah');
+        $jumlahkaryaumum = Book::with('classification')->where('classifications_id', 1)->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->count();
+        $jumlahbukukaryaumum = Book::with('classification')->where('classifications_id', 1)->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->sum('jumlah');
+        $jumlahfilsafat = Book::with('classification')->where('classifications_id', 2)->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->count();
+        $jumlahbukufilsafat = Book::with('classification')->where('classifications_id', 2)->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->sum('jumlah');
+        $jumlahagama = Book::with('classification')->where('classifications_id', 3)->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->count();
+        $jumlahbukuagama = Book::with('classification')->where('classifications_id', 3)->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->sum('jumlah');
+        $jumlahilmusosial = Book::with('classification')->where('classifications_id', 4)->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->count();
+        $jumlahbukuilmusosial = Book::with('classification')->where('classifications_id', 4)->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->sum('jumlah');
+        $jumlahbahasa = Book::with('classification')->where('classifications_id', 5)->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->count();
+        $jumlahbukubahasa = Book::with('classification')->where('classifications_id', 5)->whereYear('created_at', now()->year)->whereMonth('created_at', now()->month)->sum('jumlah');
 
         $pdf = PDF::loadView('pages.buku.buku.cetak-penambahan', [
             'jumlahkaryaumum' => $jumlahkaryaumum,
@@ -74,6 +76,59 @@ class BukuController extends Controller
             'jumlahbahasa' => $jumlahbahasa,
             'jumlahbukubahasa' => $jumlahbukubahasa,
         ])->setPaper('a4', 'landscape');
+        return $pdf->stream();
+    }
+
+    public function cetakdipinjam()
+    {
+        $classifications = Classification::all();
+
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+        $summary = [];
+        foreach ($classifications as $classification) {
+            $totalPeminjaman = DB::table('loans')
+                ->join('books', 'loans.books_id', '=', 'books.id')
+                ->where('books.classifications_id', $classification->id)
+                ->whereBetween('loans.created_at', [$startOfMonth, $endOfMonth])
+                ->sum('loans.kuantitas');
+
+            $summary[] = [
+                'klasifikasi' => $classification->name,
+                'total_peminjaman' => $totalPeminjaman,
+            ];
+        }
+
+        $pdf = PDF::loadView('pages.buku.buku.cetak-dipinjam', ['classifications' => $classifications], ['summary' => $summary])->setPaper('a4', 'landscape');
+
+        return $pdf->stream();
+    }
+
+    public function cetakdikembalikan()
+    {
+        $classifications = Classification::all();
+
+        $startOfMonth = Carbon::now()->startOfMonth();
+        $endOfMonth = Carbon::now()->endOfMonth();
+
+        $summary = [];
+        foreach ($classifications as $classification) {
+            $totalPeminjaman = DB::table('loans')
+                ->join('books', 'loans.books_id', '=', 'books.id')
+                ->where('books.classifications_id', $classification->id)
+                ->where('status', 'Sudah dikembalikan')
+                ->whereBetween('loans.created_at', [$startOfMonth, $endOfMonth])
+                ->sum('loans.kuantitas');
+
+            $summary[] = [
+                'klasifikasi' => $classification->name,
+                'total_peminjaman' => $totalPeminjaman,
+            ];
+        }
+
+        $pdf = PDF::loadView('pages.buku.buku.cetak-dikembalikan', ['classifications' => $classifications], ['summary' => $summary])->setPaper('a4', 'landscape');
+
         return $pdf->stream();
     }
 

@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\Loan;
 use App\Models\User;
 use App\Models\Bookings;
 use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\LoanRequest;
 use App\Http\Requests\WishlistRequest;
 
 class BookingBukuController extends Controller
@@ -20,7 +22,7 @@ class BookingBukuController extends Controller
     {
         $bookings = Bookings::with('user')->simplePaginate(10);
         $bookings_count = Bookings::all()->count();
-        return view('pages.peminjaman.booking', compact('bookings', 'bookings_count'));
+        return view('pages.booking.index', compact('bookings', 'bookings_count'));
     }
 
     /**
@@ -39,10 +41,48 @@ class BookingBukuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(WishlistRequest $request)
+    public function store(LoanRequest $request)
     {
-        //
+
+        $imageName = time() . '.' . $request->foto_bukti->extension();
+        $uploadedImage = $request->foto_bukti->storeAs('assets/peminjaman', $imageName);;
+        $imagePath = 'assets/peminjaman/' . $imageName;
+
+        Loan::create([
+            'users_id' => $request->users_id,
+            'books_id' => $request->books_id,
+            'status' => $request->status,
+            'kuantitas' => $request->kuantitas,
+            'foto_bukti' => $imagePath
+        ]);
+
+        return redirect()->route('peminjaman.index');
     }
+
+    public function confirmBooking($id, LoanRequest $request)
+    {
+        // Ambil data booking berdasarkan ID
+        $booking = Bookings::find($id);
+
+        // Buat entry baru di tabel Loans dengan data dari booking
+        $imageName = time() . '.' . $request->foto_bukti->extension();
+        $uploadedImage = $request->foto_bukti->store('assets/peminjaman', 'public', $imageName);
+
+        Loan::create([
+            'users_id' => $request->users_id,
+            'books_id' => $request->books_id,
+            'status' => $request->status,
+            'kuantitas' => $request->kuantitas,
+            'foto_bukti' => $uploadedImage
+        ]);
+
+        // Hapus data booking dari tabel Bookings
+        $booking->delete();
+
+        // Redirect atau kembalikan response sesuai kebutuhan
+        return redirect()->route('booking.index');
+    }
+
 
     /**
      * Display the specified resource.
@@ -52,7 +92,11 @@ class BookingBukuController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Bookings::findOrFail($id);
+
+        return view('pages.booking.konfirmasi', [
+            'item' => $item
+        ]);
     }
 
     /**
@@ -92,6 +136,10 @@ class BookingBukuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Bookings::findOrFail($id);
+
+        $item->delete();
+
+        return redirect()->route('booking.index');
     }
 }

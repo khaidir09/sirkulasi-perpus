@@ -56,7 +56,7 @@
                                 <!-- Start -->
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="nisn">NISN</label>
-                                    <input id="nisn" name="nisn" class="form-input w-full" type="number" />
+                                    <input id="nisn" name="nisn" class="form-input w-full" type="number" placeholder="Wajib 10 nomor"/>
                                 </div>
                                 <!-- End -->
                             </div>
@@ -150,7 +150,7 @@
                                 <!-- Start -->
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="email">Akun Email</label>
-                                    <input id="email" name="email" class="form-input w-full" type="email" />
+                                    <input id="email" name="email" class="form-input w-full" type="email" placeholder="example@gmail.com"/>
                                 </div>
                                 <!-- End -->
                             </div>

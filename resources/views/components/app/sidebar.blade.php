@@ -127,17 +127,17 @@
                         <div class="lg:hidden lg:sidebar-expanded:block 2xl:block">
                             <ul class="pl-9 mt-1 @if(!in_array(Request::segment(1), ['buku'])){{ 'hidden' }}@endif" :class="open ? '!block' : 'hidden'">
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('klasifikasi.index')){{ '!text-indigo-500' }}@endif" href="{{ route('klasifikasi.index') }}">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('klasifikasi.index', 'klasifikasi.create', 'klasifikasi.edit')){{ '!text-indigo-500' }}@endif" href="{{ route('klasifikasi.index') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Klasifikasi</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('penerbit.index')){{ '!text-indigo-500' }}@endif" href="{{ route('penerbit.index') }}">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('penerbit.index', 'penerbit.create', 'penerbit.edit')){{ '!text-indigo-500' }}@endif" href="{{ route('penerbit.index') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Penerbit</span>
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('buku.index')){{ '!text-indigo-500' }}@endif" href="{{ route('buku.index') }}">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('buku.index', 'buku.create', 'buku.edit')){{ '!text-indigo-500' }}@endif" href="{{ route('buku.index') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Buku</span>
                                     </a>
                                 </li>
@@ -172,7 +172,7 @@
                                     </a>
                                 </li>
                                 <li class="mb-1 last:mb-0">
-                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('peminjaman.index')){{ '!text-indigo-500' }}@endif" href="{{ route('peminjaman.index') }}">
+                                    <a class="block text-slate-400 hover:text-slate-200 transition duration-150 truncate @if(Route::is('peminjaman.index', 'peminjaman.create', 'peminjaman.edit', 'ubah-status-peminjaman')){{ '!text-indigo-500' }}@endif" href="{{ route('peminjaman.index') }}">
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Transaksi</span>
                                     </a>
                                 </li>

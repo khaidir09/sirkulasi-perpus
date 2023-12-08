@@ -42,13 +42,16 @@
                 >
                     <ul>
                         <li>
-                            <a target="__blank" class="font-medium text-sm text-slate-600 hover:text-indigo-800 flex py-1 px-3" href="#" @click="open = false" @focus="open = true" @focusout="open = false">Jumlah Buku yang Dimiliki</a>
+                            <a target="__blank" class="font-medium text-sm text-slate-600 hover:text-indigo-800 flex py-1 px-3" href="{{ route('cetak-jumlah-buku') }}" @click="open = false" @focus="open = true" @focusout="open = false">Jumlah Buku yang Dimiliki</a>
                         </li>
                         <li>
-                            <a target="__blank" class="font-medium text-sm text-slate-600 hover:text-indigo-800 flex py-1 px-3" href="#" @click="open = false" @focus="open = true" @focusout="open = false">Jumlah Penambahan Buku</a>
+                            <a target="__blank" class="font-medium text-sm text-slate-600 hover:text-indigo-800 flex py-1 px-3" href="{{ route('cetak-penambahan-jumlah-buku') }}" @click="open = false" @focus="open = true" @focusout="open = false">Jumlah Penambahan Buku</a>
                         </li>
                         <li>
-                            <a target="__blank" class="font-medium text-sm text-slate-600 hover:text-indigo-800 flex py-1 px-3" href="#" @click="open = false" @focus="open = true" @focusout="open = false">Jumlah Buku Dipinjam</a>
+                            <a target="__blank" class="font-medium text-sm text-slate-600 hover:text-indigo-800 flex py-1 px-3" href="{{ route('cetak-jumlah-buku-dipinjam') }}" @click="open = false" @focus="open = true" @focusout="open = false">Jumlah Buku Dipinjam</a>
+                        </li>
+                        <li>
+                            <a target="__blank" class="font-medium text-sm text-slate-600 hover:text-indigo-800 flex py-1 px-3" href="{{ route('cetak-jumlah-buku-dikembalikan') }}" @click="open = false" @focus="open = true" @focusout="open = false">Jumlah Buku Dikembalikan</a>
                         </li>
                     </ul>
                 </div>
@@ -157,7 +160,7 @@
                                 <div class="font-medium">{{ $book->jumlah }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $book->loan->count() }}</div>
+                                <div class="font-medium">{{ $book->loan->sum('kuantitas') }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
