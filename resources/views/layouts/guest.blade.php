@@ -38,6 +38,9 @@
                             <!-- Desktop sign in links -->
                             <ul class="flex grow justify-end flex-wrap items-center">
                                 <li>
+                                    <a class="font-medium text-gray-600 decoration-blue-500 decoration-2 underline-offset-2 hover:underline px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('panduan') }}">Panduan</a>
+                                </li>
+                                <li>
                                     <a class="font-medium text-gray-600 decoration-blue-500 decoration-2 underline-offset-2 hover:underline px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out" href="{{ route('login') }}">Masuk</a>
                                 </li>
                                 <li class="ml-3">

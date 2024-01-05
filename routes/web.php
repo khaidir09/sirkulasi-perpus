@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\BookingBukuController as AdminBookingBukuControll
 use App\Http\Controllers\Admin\PenerbitBukuController as AdminPenerbitBukuController;
 use App\Http\Controllers\Admin\PengajuanBukuController as AdminPengajuanBukuController;
 use App\Http\Controllers\Admin\KlasifikasiBukuController as AdminKlasifikasiBukuController;
+use App\Http\Controllers\PanduanController;
 use App\Http\Controllers\RiwayatBookingController;
 
 /*
@@ -32,6 +33,7 @@ use App\Http\Controllers\RiwayatBookingController;
 */
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('panduan', [PanduanController::class, 'index'])->name('panduan');
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
 Route::resource('anggota/list-anggota', AdminAnggotaController::class);
 Route::resource('anggota/pendaftaran', AdminPendaftaranAnggotaController::class);

@@ -138,7 +138,7 @@
     </section>
 
     <!-- Process -->
-    <section class="bg-gray-50">
+    {{-- <section class="bg-gray-50">
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="pt-10 pb-12 md:pt-16 md:pb-20">
 
@@ -194,6 +194,59 @@
 
                 </div>
 
+            </div>
+        </div>
+    </section> --}}
+
+    <!-- FAQs -->
+    <section class="bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="py-12 md:py-20 border-b border-gray-100">
+    
+                <!-- Section header -->
+                <div class="pb-12 md:pb-20">
+                    <h2 class="h2 font-cabinet-grotesk">Pertanyaan yang Sering Diajukan</h2>
+                </div>
+    
+                <!-- Columns -->
+                <div class="md:flex md:space-x-12 space-y-8 md:space-y-0">
+    
+                    <!-- Column -->
+                    <div class="w-full md:w-1/2 space-y-8">
+    
+                        <!-- Item -->
+                        <div class="space-y-2">
+                            <h4 class="text-xl font-cabinet-grotesk font-bold">Siapa saja yang dapat menjadi Anggota Perpustakaan?</h4>
+                            <p class="text-gray-500">Peserta didik, Guru dan Tenaga Kependidikan</p>
+                        </div>
+    
+                        <!-- Item -->
+                        <div class="space-y-2">
+                            <h4 class="text-xl font-cabinet-grotesk font-bold">Bagaimana cara pendaftaran anggota?</h4>
+                            <p class="text-gray-500">Pendaftaran anggota dapat dilakukan secara mandiri melalui website ini atau langsung datang ke Perpustakaan SMK Negeri 1 Amuntai</p>
+                        </div>
+    
+                    </div>
+    
+                    <!-- Column -->
+                    <div class="w-full md:w-1/2 space-y-8">
+    
+                        <!-- Item -->
+                        <div class="space-y-2">
+                            <h4 class="text-xl font-cabinet-grotesk font-bold">Berapa lama waktu peminjaman koleksi?</h4>
+                            <p class="text-gray-500">Maksimal 20 hari setelah tanggal peminjaman</p>
+                        </div>
+    
+                        <!-- Item -->
+                        <div class="space-y-2">
+                            <h4 class="text-xl font-cabinet-grotesk font-bold">Apakah dapat dilakukan perpanjangan peminjaman?</h4>
+                            <p class="text-gray-500">Anggota dapat melakukan perpanjangan lebih dari satu kali</p>
+                        </div>
+    
+                    </div>
+    
+                </div>
+    
             </div>
         </div>
     </section>
