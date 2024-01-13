@@ -30,9 +30,12 @@ class FortifyServiceProvider extends ServiceProvider
         {
             public function toResponse($request)
             {
-                if (Auth::user()->role == 'Admin') {
-                    Alert::success('Berhasil', 'Anda masuk sebagai admin');
-                    return redirect()->route('admin-dashboard');
+                if (Auth::user()->role == 'Pustakawan') {
+                    Alert::success('Berhasil', 'Anda masuk sebagai pustakawan');
+                    return redirect()->route('pustakawan-dashboard');
+                } elseif (Auth::user()->role == 'Administrator') {
+                    Alert::success('Berhasil', 'Anda masuk sebagai administrator');
+                    return redirect()->route('administrator-dashboard');
                 } else {
                     Alert::success('Berhasil', 'Anda masuk sebagai anggota');
                     return redirect()->route('dashboard');

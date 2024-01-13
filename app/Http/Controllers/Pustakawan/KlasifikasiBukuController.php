@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Pustakawan;
 
-use Illuminate\Http\Request;
+use App\Models\Classification;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\PublisherRequest;
-use App\Models\Publisher;
+use RealRashid\SweetAlert\Facades\Alert;
+use App\Http\Requests\Admin\ClassificationRequest;
 
-class PenerbitBukuController extends Controller
+class KlasifikasiBukuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class PenerbitBukuController extends Controller
      */
     public function index()
     {
-        $publishers = Publisher::paginate(10);
-        $publishers_count = Publisher::all()->count();
-        return view('pages.buku.penerbit.index', compact('publishers', 'publishers_count'));
+        $classifications = Classification::paginate(10);
+        $classifications_count = Classification::all()->count();
+        return view('pages.buku.klasifikasi.index', compact('classifications', 'classifications_count'));
     }
 
     /**
@@ -28,7 +28,7 @@ class PenerbitBukuController extends Controller
      */
     public function create()
     {
-        return view('pages.buku.penerbit.create');
+        return view('pages.buku.klasifikasi.create');
     }
 
     /**
@@ -37,13 +37,13 @@ class PenerbitBukuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PublisherRequest $request)
+    public function store(ClassificationRequest $request)
     {
         $data = $request->all();
 
-        Publisher::create($data);
+        Classification::create($data);
 
-        return redirect()->route('penerbit.index');
+        return redirect()->route('klasifikasi.index');
     }
 
     /**
@@ -65,9 +65,9 @@ class PenerbitBukuController extends Controller
      */
     public function edit($id)
     {
-        $item = Publisher::findOrFail($id);
+        $item = Classification::findOrFail($id);
 
-        return view('pages.buku.penerbit.edit', [
+        return view('pages.buku.klasifikasi.edit', [
             'item' => $item
         ]);
     }
@@ -79,15 +79,17 @@ class PenerbitBukuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PublisherRequest $request, $id)
+    public function update(ClassificationRequest $request, $id)
     {
         $data = $request->all();
 
-        $item = Publisher::findOrFail($id);
+        $item = Classification::findOrFail($id);
 
         $item->update($data);
 
-        return redirect()->route('penerbit.index');
+        Alert::success('Berhasil', 'Data klasifikasi buku berhasil diperbarui');
+
+        return redirect()->route('klasifikasi.index');
     }
 
     /**
@@ -98,10 +100,10 @@ class PenerbitBukuController extends Controller
      */
     public function destroy($id)
     {
-        $item = Publisher::findOrFail($id);
+        $item = Classification::findOrFail($id);
 
         $item->delete();
 
-        return redirect()->route('penerbit.index');
+        return redirect()->route('klasifikasi.index');
     }
 }

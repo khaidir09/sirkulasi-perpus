@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Pustakawan;
 
-use App\Models\User;
-use App\Models\Wishlist;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\WishlistRequest;
+use App\Http\Requests\Admin\GuestRequest;
+use App\Models\Book;
+use App\Models\Guest;
+use App\Models\User;
 
-class PengajuanBukuController extends Controller
+class TamuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class PengajuanBukuController extends Controller
      */
     public function index()
     {
-        $wishlists = Wishlist::with('user')->simplePaginate(10);
-        $wishlists_count = Wishlist::all()->count();
-        return view('pages.pengajuan.index', compact('wishlists', 'wishlists_count'));
+        $guests = Guest::with('user', 'book')->simplePaginate(10);
+        $guests_count = Guest::all()->count();
+        return view('pages.tamu.index', compact('guests', 'guests_count'));
     }
 
     /**
@@ -29,7 +29,9 @@ class PengajuanBukuController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::where('role', 'Anggota')->get();
+        $books = Book::all();
+        return view('pages.tamu.create', compact('users', 'books'));
     }
 
     /**
@@ -38,9 +40,13 @@ class PengajuanBukuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(WishlistRequest $request)
+    public function store(GuestRequest $request)
     {
-        //
+        $data = $request->all();
+
+        Guest::create($data);
+
+        return redirect()->route('tamu.index');
     }
 
     /**
@@ -62,10 +68,14 @@ class PengajuanBukuController extends Controller
      */
     public function edit($id)
     {
-        $item = Wishlist::findOrFail($id);
+        $item = Guest::findOrFail($id);
+        $users = User::all();
+        $books = Book::all();
 
-        return view('pages.pengajuan.edit', [
-            'item' => $item
+        return view('pages.tamu.edit', [
+            'item' => $item,
+            'users' => $users,
+            'books' => $books
         ]);
     }
 
@@ -76,15 +86,15 @@ class PengajuanBukuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(GuestRequest $request, $id)
     {
         $data = $request->all();
 
-        $item = Wishlist::findOrFail($id);
+        $item = Guest::findOrFail($id);
 
         $item->update($data);
 
-        return redirect()->route('daftar-pengajuan.index');
+        return redirect()->route('tamu.index');
     }
 
     /**
@@ -95,6 +105,10 @@ class PengajuanBukuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $item = Guest::findOrFail($id);
+
+        $item->delete();
+
+        return redirect()->route('tamu.index');
     }
 }

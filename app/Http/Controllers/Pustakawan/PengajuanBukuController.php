@@ -1,14 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Pustakawan;
 
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
-use App\Models\Classification;
 use App\Http\Controllers\Controller;
-use RealRashid\SweetAlert\Facades\Alert;
-use App\Http\Requests\Admin\ClassificationRequest;
+use App\Http\Requests\WishlistRequest;
 
-class KlasifikasiBukuController extends Controller
+class PengajuanBukuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +16,9 @@ class KlasifikasiBukuController extends Controller
      */
     public function index()
     {
-        $classifications = Classification::paginate(10);
-        $classifications_count = Classification::all()->count();
-        return view('pages.buku.klasifikasi.index', compact('classifications', 'classifications_count'));
+        $wishlists = Wishlist::with('user')->simplePaginate(10);
+        $wishlists_count = Wishlist::all()->count();
+        return view('pages.pengajuan.index', compact('wishlists', 'wishlists_count'));
     }
 
     /**
@@ -29,7 +28,7 @@ class KlasifikasiBukuController extends Controller
      */
     public function create()
     {
-        return view('pages.buku.klasifikasi.create');
+        //
     }
 
     /**
@@ -38,13 +37,9 @@ class KlasifikasiBukuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ClassificationRequest $request)
+    public function store(WishlistRequest $request)
     {
-        $data = $request->all();
-
-        Classification::create($data);
-
-        return redirect()->route('klasifikasi.index');
+        //
     }
 
     /**
@@ -66,9 +61,9 @@ class KlasifikasiBukuController extends Controller
      */
     public function edit($id)
     {
-        $item = Classification::findOrFail($id);
+        $item = Wishlist::findOrFail($id);
 
-        return view('pages.buku.klasifikasi.edit', [
+        return view('pages.pengajuan.edit', [
             'item' => $item
         ]);
     }
@@ -80,17 +75,15 @@ class KlasifikasiBukuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(ClassificationRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
 
-        $item = Classification::findOrFail($id);
+        $item = Wishlist::findOrFail($id);
 
         $item->update($data);
 
-        Alert::success('Berhasil', 'Data klasifikasi buku berhasil diperbarui');
-
-        return redirect()->route('klasifikasi.index');
+        return redirect()->route('daftar-pengajuan.index');
     }
 
     /**
@@ -101,10 +94,6 @@ class KlasifikasiBukuController extends Controller
      */
     public function destroy($id)
     {
-        $item = Classification::findOrFail($id);
-
-        $item->delete();
-
-        return redirect()->route('klasifikasi.index');
+        //
     }
 }

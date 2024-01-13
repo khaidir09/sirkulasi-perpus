@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Pustakawan;
 
+use App\Models\Book;
+use App\Models\Loan;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\GuestRequest;
-use App\Models\Book;
-use App\Models\Guest;
-use App\Models\User;
+use App\Http\Requests\Admin\LoanRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
-class TamuController extends Controller
+class PeminjamanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,9 +19,9 @@ class TamuController extends Controller
      */
     public function index()
     {
-        $guests = Guest::with('user', 'book')->simplePaginate(10);
-        $guests_count = Guest::all()->count();
-        return view('pages.tamu.index', compact('guests', 'guests_count'));
+        $loans = Loan::with('user', 'book')->simplePaginate(10);
+        $loans_count = Loan::all()->count();
+        return view('pages.peminjaman.index', compact('loans', 'loans_count'));
     }
 
     /**
@@ -32,7 +33,7 @@ class TamuController extends Controller
     {
         $users = User::where('role', 'Anggota')->get();
         $books = Book::all();
-        return view('pages.tamu.create', compact('users', 'books'));
+        return view('pages.peminjaman.create', compact('users', 'books'));
     }
 
     /**
@@ -41,13 +42,23 @@ class TamuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(GuestRequest $request)
+    public function store(LoanRequest $request)
     {
         $data = $request->all();
 
-        Guest::create($data);
+        $data['foto_bukti'] = $request->file('foto_bukti')->store('assets/peminjaman', 'public');
 
-        return redirect()->route('tamu.index');
+        Loan::create($data);
+
+        return redirect()->route('peminjaman.index');
+    }
+
+    public function status($id)
+    {
+        $item = Loan::findOrFail($id);
+        return view('pages.peminjaman.status', [
+            'item' => $item
+        ]);
     }
 
     /**
@@ -58,7 +69,10 @@ class TamuController extends Controller
      */
     public function show($id)
     {
-        //
+        $item = Loan::findOrFail($id);
+        return view('pages.peminjaman.show', [
+            'item' => $item
+        ]);
     }
 
     /**
@@ -69,11 +83,11 @@ class TamuController extends Controller
      */
     public function edit($id)
     {
-        $item = Guest::findOrFail($id);
+        $item = Loan::findOrFail($id);
         $users = User::all();
         $books = Book::all();
 
-        return view('pages.tamu.edit', [
+        return view('pages.peminjaman.edit', [
             'item' => $item,
             'users' => $users,
             'books' => $books
@@ -87,15 +101,19 @@ class TamuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(GuestRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $data = $request->all();
 
-        $item = Guest::findOrFail($id);
+        $item = Loan::findOrFail($id);
+
+        if ($request->hasFile('foto_bukti')) {
+            $data['foto_bukti'] = $request->file('foto_bukti')->store('assets/peminjaman', 'public');
+        }
 
         $item->update($data);
 
-        return redirect()->route('tamu.index');
+        return redirect()->route('peminjaman.index');
     }
 
     /**
@@ -106,10 +124,12 @@ class TamuController extends Controller
      */
     public function destroy($id)
     {
-        $item = Guest::findOrFail($id);
+        $item = Loan::findOrFail($id);
 
         $item->delete();
 
-        return redirect()->route('tamu.index');
+        Alert::success('Berhasil', 'Data tranasksi peminjaman berhasil dihapus');
+
+        return redirect()->route('peminjaman.index');
     }
 }

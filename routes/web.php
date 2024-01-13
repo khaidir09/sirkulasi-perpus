@@ -8,18 +8,19 @@ use App\Http\Controllers\CariBukuController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PengajuanBukuController;
-use App\Http\Controllers\Admin\BukuController as AdminBukuController;
-use App\Http\Controllers\Admin\TamuController as AdminTamuController;
-use App\Http\Controllers\Admin\AnggotaController as AdminAnggotaController;
-use App\Http\Controllers\Admin\PendaftaranAnggotaController as AdminPendaftaranAnggotaController;
-use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
-use App\Http\Controllers\Admin\PeminjamanController as AdminPeminjamanController;
-use App\Http\Controllers\Admin\BookingBukuController as AdminBookingBukuController;
-use App\Http\Controllers\Admin\PenerbitBukuController as AdminPenerbitBukuController;
-use App\Http\Controllers\Admin\PengajuanBukuController as AdminPengajuanBukuController;
-use App\Http\Controllers\Admin\KlasifikasiBukuController as AdminKlasifikasiBukuController;
+use App\Http\Controllers\Pustakawan\BukuController as PustakawanBukuController;
+use App\Http\Controllers\Pustakawan\TamuController as PustakawanTamuController;
+use App\Http\Controllers\Pustakawan\AnggotaController as PustakawanAnggotaController;
+use App\Http\Controllers\Pustakawan\PendaftaranAnggotaController as PustakawanPendaftaranAnggotaController;
+use App\Http\Controllers\Pustakawan\DashboardController as PustakawanDashboardController;
+use App\Http\Controllers\Pustakawan\PeminjamanController as PustakawanPeminjamanController;
+use App\Http\Controllers\Pustakawan\BookingBukuController as PustakawanBookingBukuController;
+use App\Http\Controllers\Pustakawan\PenerbitBukuController as PustakawanPenerbitBukuController;
+use App\Http\Controllers\Pustakawan\PengajuanBukuController as PustakawanPengajuanBukuController;
+use App\Http\Controllers\Pustakawan\KlasifikasiBukuController as PustakawanKlasifikasiBukuController;
 use App\Http\Controllers\PanduanController;
 use App\Http\Controllers\RiwayatBookingController;
+use App\Http\Controllers\Administrator\DashboardController as AdministratorDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,23 +35,23 @@ use App\Http\Controllers\RiwayatBookingController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('panduan', [PanduanController::class, 'index'])->name('panduan');
-Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin-dashboard');
-Route::resource('anggota/list-anggota', AdminAnggotaController::class);
-Route::resource('anggota/pendaftaran', AdminPendaftaranAnggotaController::class);
-Route::resource('buku/klasifikasi', AdminKlasifikasiBukuController::class);
-Route::resource('buku/penerbit', AdminPenerbitBukuController::class);
-Route::resource('buku/buku', AdminBukuController::class);
-Route::resource('peminjaman/peminjaman', AdminPeminjamanController::class);
-Route::resource('peminjaman/booking', AdminBookingBukuController::class);
-Route::post('peminjaman/confirm-booking/{id}', [AdminBookingBukuController::class, 'confirmBooking'])->name('konfirmasi-booking');
-Route::get('peminjaman/status/{id}', [AdminPeminjamanController::class, 'status'])->name('ubah-status-peminjaman');
-Route::resource('tamu', AdminTamuController::class);
-Route::resource('daftar-pengajuan', AdminPengajuanBukuController::class);
+Route::get('/pustakawan/dashboard', [PustakawanDashboardController::class, 'index'])->name('pustakawan-dashboard');
+Route::resource('anggota/list-anggota', PustakawanAnggotaController::class);
+Route::resource('anggota/pendaftaran', PustakawanPendaftaranAnggotaController::class);
+Route::resource('buku/klasifikasi', PustakawanKlasifikasiBukuController::class);
+Route::resource('buku/penerbit', PustakawanPenerbitBukuController::class);
+Route::resource('buku/buku', PustakawanBukuController::class);
+Route::resource('peminjaman/peminjaman', PustakawanPeminjamanController::class);
+Route::resource('peminjaman/booking', PustakawanBookingBukuController::class);
+Route::post('peminjaman/confirm-booking/{id}', [PustakawanBookingBukuController::class, 'confirmBooking'])->name('konfirmasi-booking');
+Route::get('peminjaman/status/{id}', [PustakawanPeminjamanController::class, 'status'])->name('ubah-status-peminjaman');
+Route::resource('tamu', PustakawanTamuController::class);
+Route::resource('daftar-pengajuan', PustakawanPengajuanBukuController::class);
 
-Route::get('laporan', [AdminBukuController::class, 'cetak'])->name('cetak-jumlah-buku');
-Route::get('laporan-penambahan', [AdminBukuController::class, 'cetakpenambahan'])->name('cetak-penambahan-jumlah-buku');
-Route::get('laporan-dipinjam', [AdminBukuController::class, 'cetakdipinjam'])->name('cetak-jumlah-buku-dipinjam');
-Route::get('laporan-dikembalikan', [AdminBukuController::class, 'cetakdikembalikan'])->name('cetak-jumlah-buku-dikembalikan');
+Route::get('laporan', [PustakawanBukuController::class, 'cetak'])->name('cetak-jumlah-buku');
+Route::get('laporan-penambahan', [PustakawanBukuController::class, 'cetakpenambahan'])->name('cetak-penambahan-jumlah-buku');
+Route::get('laporan-dipinjam', [PustakawanBukuController::class, 'cetakdipinjam'])->name('cetak-jumlah-buku-dipinjam');
+Route::get('laporan-dikembalikan', [PustakawanBukuController::class, 'cetakdikembalikan'])->name('cetak-jumlah-buku-dikembalikan');
 
 Route::middleware('ensureAnggotaRole:Anggota', 'verified')->group(function () {
 
@@ -62,4 +63,9 @@ Route::middleware('ensureAnggotaRole:Anggota', 'verified')->group(function () {
     Route::post('/akun-saya/{redirect}', [AkunSayaController::class, 'update'])->name('akun-saya-update');
     Route::resource('pengajuan', PengajuanBukuController::class);
     Route::resource('riwayat-booking', RiwayatBookingController::class);
+});
+
+Route::middleware('ensureAdministratorRole:Administrator', 'verified')->group(function () {
+
+    Route::get('/administrator/dashboard', [AdministratorDashboardController::class, 'index'])->name('administrator-dashboard');
 });

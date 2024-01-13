@@ -1,15 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Pustakawan;
 
 use App\Models\Loan;
-use App\Models\User;
 use App\Models\Bookings;
-use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\LoanRequest;
-use App\Http\Requests\WishlistRequest;
 
 class BookingBukuController extends Controller
 {

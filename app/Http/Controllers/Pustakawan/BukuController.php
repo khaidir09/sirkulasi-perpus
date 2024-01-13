@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Pustakawan;
 
 use Carbon\Carbon;
 use App\Models\Book;
-use App\Models\Loan;
 use App\Models\Publisher;
-use Illuminate\Http\Request;
 use App\Models\Classification;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
