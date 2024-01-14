@@ -74,8 +74,8 @@
                                 <div class="font-medium text-sky-500">{{ $i++ }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                @if ($item->user)
-                                    @if ($item->user->exists())
+                                @if ($guest->user)
+                                    @if ($guest->user->exists())
                                         <div class="font-medium">{{ $guest->user->name }}</div>
                                     @else
                                         <div class="font-medium text-rose-600">Data anggota telah dihapus</div>
