@@ -20,7 +20,7 @@
         </div>      
 
         <!-- Table -->
-        <x-pengajuan.pengajuan-table-admin :wishlists="$wishlists" :count="$wishlists_count" />
+        <x-pengajuan.pengajuan-table-pustakawan :wishlists="$wishlists" :count="$wishlists_count" />
         
         <!-- Pagination -->
         <div class="mt-8">

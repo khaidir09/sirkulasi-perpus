@@ -74,7 +74,15 @@
                                 <div class="font-medium text-sky-500">{{ $i++ }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $guest->user->name }}</div>
+                                @if ($item->user)
+                                    @if ($item->user->exists())
+                                        <div class="font-medium">{{ $guest->user->name }}</div>
+                                    @else
+                                        <div class="font-medium text-rose-600">Data anggota telah dihapus</div>
+                                    @endif
+                                @else
+                                    <div class="font-medium text-rose-600">Data anggota telah dihapus</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-medium">{{ \Carbon\Carbon::parse($guest->created_at)->format('d/m/Y') }}</div>
