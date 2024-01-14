@@ -70,7 +70,7 @@
                                             </svg>
                                         </button>
                                     </a>
-                                    <a href="{{ route('daftar-pengajuan.edit', $wishlist->id) }}">
+                                    <a href="{{ route('admin-daftar-pengajuan.edit', $wishlist->id) }}">
                                         <button class="text-blue-500 hover:text-blue-600 rounded-full">
                                             <span class="sr-only">Ubah Status</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

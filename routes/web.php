@@ -21,6 +21,16 @@ use App\Http\Controllers\Pustakawan\KlasifikasiBukuController as PustakawanKlasi
 use App\Http\Controllers\PanduanController;
 use App\Http\Controllers\RiwayatBookingController;
 use App\Http\Controllers\Administrator\DashboardController as AdministratorDashboardController;
+use App\Http\Controllers\Administrator\PendaftaranAnggotaController as AdministratorPendaftaranAnggotaController;
+use App\Http\Controllers\Administrator\AnggotaController as AdministratorAnggotaController;
+use App\Http\Controllers\Administrator\KlasifikasiBukuController as AdministratorKlasifikasiBukuController;
+use App\Http\Controllers\Administrator\PenerbitBukuController as AdministratorPenerbitBukuController;
+use App\Http\Controllers\Administrator\BukuController as AdministratorBukuController;
+use App\Http\Controllers\Administrator\BookingBukuController as AdministratorBookingBukuController;
+use App\Http\Controllers\Administrator\PeminjamanController as AdministratorPeminjamanController;
+use App\Http\Controllers\Administrator\TamuController as AdministratorTamuController;
+use App\Http\Controllers\Administrator\PengajuanBukuController as AdministratorPengajuanBukuController;
+use App\Http\Controllers\Administrator\PenggunaController as AdministratorPenggunaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,4 +78,16 @@ Route::middleware('ensureAnggotaRole:Anggota', 'verified')->group(function () {
 Route::middleware('ensureAdministratorRole:Administrator', 'verified')->group(function () {
 
     Route::get('/administrator/dashboard', [AdministratorDashboardController::class, 'index'])->name('administrator-dashboard');
+    Route::resource('anggota/admin-pendaftaran', AdministratorPendaftaranAnggotaController::class);
+    Route::resource('anggota/admin-list-anggota', AdministratorAnggotaController::class);
+    Route::resource('buku/admin-klasifikasi', AdministratorKlasifikasiBukuController::class);
+    Route::resource('buku/admin-penerbit', AdministratorPenerbitBukuController::class);
+    Route::resource('buku/admin-buku', AdministratorBukuController::class);
+    Route::resource('peminjaman/admin-booking', AdministratorBookingBukuController::class);
+    Route::post('peminjaman/admin-confirm-booking/{id}', [AdministratorBookingBukuController::class, 'confirmBooking'])->name('admin-konfirmasi-booking');
+    Route::resource('peminjaman/admin-peminjaman', AdministratorPeminjamanController::class);
+    Route::get('peminjaman/status/{id}', [AdministratorPeminjamanController::class, 'status'])->name('admin-ubah-status-peminjaman');
+    Route::resource('admin-tamu', AdministratorTamuController::class);
+    Route::resource('admin-daftar-pengajuan', AdministratorPengajuanBukuController::class);
+    Route::resource('admin-list-pengguna', AdministratorPenggunaController::class);
 });
