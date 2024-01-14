@@ -45,7 +45,7 @@ class PengajuanBukuController extends Controller
             'users_id' => $request['users_id'],
             'penerbit' => $request['penerbit'],
             'status' => $request['status'],
-            'judul_buku' => Crypt::encrypt($request['judul_buku']),
+            'judul_buku' => $request['judul_buku'],
         ]);
 
         return redirect()->route('pengajuan.index');
