@@ -86,7 +86,7 @@ Route::middleware('ensureAdministratorRole:Administrator', 'verified')->group(fu
     Route::resource('peminjaman/admin-booking', AdministratorBookingBukuController::class);
     Route::post('peminjaman/admin-confirm-booking/{id}', [AdministratorBookingBukuController::class, 'confirmBooking'])->name('admin-konfirmasi-booking');
     Route::resource('peminjaman/admin-peminjaman', AdministratorPeminjamanController::class);
-    Route::get('peminjaman/status/{id}', [AdministratorPeminjamanController::class, 'status'])->name('admin-ubah-status-peminjaman');
+    Route::get('admin-peminjaman/status/{id}', [AdministratorPeminjamanController::class, 'status'])->name('admin-ubah-status-peminjaman');
     Route::resource('admin-tamu', AdministratorTamuController::class);
     Route::resource('admin-daftar-pengajuan', AdministratorPengajuanBukuController::class);
     Route::resource('admin-list-pengguna', AdministratorPenggunaController::class);
