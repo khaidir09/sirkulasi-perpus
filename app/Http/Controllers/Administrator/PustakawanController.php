@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Administrator;
 
-use App\Models\User;
-use App\Models\ClassRoom;
-use App\Models\Competency;
+use App\Models\Librarian;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Admin\UserRequest;
 use RealRashid\SweetAlert\Facades\Alert;
 
-class PenggunaController extends Controller
+class PustakawanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,9 +16,7 @@ class PenggunaController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(10);
-        $users_count = User::all()->count();
-        return view('pages/admin/pengguna/index', compact('users', 'users_count'));
+        return view('pages.admin.pustakawan.index');
     }
 
     /**
@@ -31,7 +26,7 @@ class PenggunaController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.admin.pustakawan.create');
     }
 
     /**
@@ -42,7 +37,13 @@ class PenggunaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $data['photo'] = $request->file('photo')->store('assets/pustakawan', 'public');
+
+        Librarian::create($data);
+
+        return redirect()->route('admin-pustakawan.index');
     }
 
     /**
@@ -64,16 +65,10 @@ class PenggunaController extends Controller
      */
     public function edit($id)
     {
-        $item = User::findOrFail($id);
-        $users = User::with(['classroom', 'competency'])->get();
-        $classrooms = ClassRoom::all();
-        $competencies = Competency::all();
+        $item = Librarian::findOrFail($id);
 
-        return view('pages.admin.pengguna.edit', [
-            'item' => $item,
-            'users' => $users,
-            'classrooms' => $classrooms,
-            'competencies' => $competencies
+        return view('pages.admin.pustakawan.edit', [
+            'item' => $item
         ]);
     }
 
@@ -88,17 +83,15 @@ class PenggunaController extends Controller
     {
         $data = $request->all();
 
-        $item = User::findOrFail($id);
+        $item = Librarian::findOrFail($id);
 
-        if ($request->password) {
-            $data['password'] = bcrypt($request->password);
-        } else {
-            unset($data['password']);
+        if ($request->hasFile('photo')) {
+            $data['photo'] = $request->file('photo')->store('assets/pustakawan', 'public');
         }
 
         $item->update($data);
 
-        return redirect()->route('admin-list-pengguna.index');
+        return redirect()->route('admin-pustakawan.index');
     }
 
     /**
@@ -109,12 +102,12 @@ class PenggunaController extends Controller
      */
     public function destroy($id)
     {
-        $item = User::findOrFail($id);
+        $item = Librarian::findOrFail($id);
 
         $item->delete();
 
-        Alert::success('Berhasil', 'Data pengguna berhasil dihapus');
+        Alert::success('Berhasil', 'Data pustakawan berhasil dihapus');
 
-        return redirect()->route('admin-list-pengguna.index');
+        return redirect()->route('admin-pustakawan.index');
     }
 }

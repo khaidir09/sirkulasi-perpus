@@ -31,6 +31,7 @@ use App\Http\Controllers\Administrator\PeminjamanController as AdministratorPemi
 use App\Http\Controllers\Administrator\TamuController as AdministratorTamuController;
 use App\Http\Controllers\Administrator\PengajuanBukuController as AdministratorPengajuanBukuController;
 use App\Http\Controllers\Administrator\PenggunaController as AdministratorPenggunaController;
+use App\Http\Controllers\Administrator\PustakawanController as AdministratorPustakawanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -53,6 +54,7 @@ Route::resource('buku/penerbit', PustakawanPenerbitBukuController::class);
 Route::resource('buku/buku', PustakawanBukuController::class);
 Route::resource('peminjaman/peminjaman', PustakawanPeminjamanController::class);
 Route::resource('peminjaman/booking', PustakawanBookingBukuController::class);
+Route::get('/kirim-email-booking-expired/{userId}', [PustakawanBookingBukuController::class, 'kirimEmail'])->name('kirim-email-booking-expired');
 Route::post('peminjaman/confirm-booking/{id}', [PustakawanBookingBukuController::class, 'confirmBooking'])->name('konfirmasi-booking');
 Route::get('peminjaman/status/{id}', [PustakawanPeminjamanController::class, 'status'])->name('ubah-status-peminjaman');
 Route::resource('tamu', PustakawanTamuController::class);
@@ -90,4 +92,5 @@ Route::middleware('ensureAdministratorRole:Administrator', 'verified')->group(fu
     Route::resource('admin-tamu', AdministratorTamuController::class);
     Route::resource('admin-daftar-pengajuan', AdministratorPengajuanBukuController::class);
     Route::resource('admin-list-pengguna', AdministratorPenggunaController::class);
+    Route::resource('admin-pustakawan', AdministratorPustakawanController::class);
 });

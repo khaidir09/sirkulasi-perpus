@@ -89,114 +89,27 @@
                 <!-- Section content -->
                 <div class="max-w-sm mx-auto md:max-w-none grid gap-12 md:grid-cols-3 md:gap-x-10 md:gap-y-10 items-start">
 
-                    <!-- 1st article -->
-                    <article>
-                        <a class="relative block group mt-8 mb-4" href="#0">
-                            <div class="absolute inset-0 pointer-events-none border-2 border-slate-500 opacity-20 translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition duration-300 ease-out -z-10" aria-hidden="true"></div>
-                            <div class="overflow-hidden">
-                                <img class="w-full aspect-square object-cover group-hover:scale-105 transition duration-700 ease-out" src="{{ asset('images/perpus-1.jpg') }}" width="342" height="342" alt="News 01" />
-                            </div>
-                        </a>
-                        <h3 class="text-xl font-semibold font-playfair-display mb-2">
-                            <a class="text-slate-800 hover:underline hover:decoration-blue-100" href="#0">EWI HERMAWATI, A.Md</a>
-                        </h3>
-                        <p class="text-lg text-slate-500">Kepala Perpustakaan</p>
-                    </article>
-
-                    <!-- 2nd article -->
-                    <article>
-                        <a class="relative block group mt-8 mb-4" href="#0">
-                            <div class="absolute inset-0 pointer-events-none border-2 border-slate-500 opacity-20 translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition duration-300 ease-out -z-10" aria-hidden="true"></div>
-                            <div class="overflow-hidden">
-                                <img class="w-full aspect-square object-cover group-hover:scale-105 transition duration-700 ease-out" src="{{ asset('images/perpus-2.jpg') }}" width="342" height="342" alt="News 02" />
-                            </div>
-                        </a>
-                        <h3 class="text-xl font-semibold font-playfair-display mb-2">
-                            <a class="text-slate-800 hover:underline hover:decoration-blue-100" href="#0">SITI RABIATUL ADAWIAH, S.I.Pust</a>
-                        </h3>
-                        <p class="text-lg text-slate-500">Bagian Pengolahan</p>
-                    </article>
-
-                    <!-- 3rd article -->
-                    <article>
-                        <a class="relative block group mt-8 mb-4" href="#0">
-                            <div class="absolute inset-0 pointer-events-none border-2 border-slate-500 opacity-20 translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition duration-300 ease-out -z-10" aria-hidden="true"></div>
-                            <div class="overflow-hidden">
-                                <img class="w-full aspect-square object-cover group-hover:scale-105 transition duration-700 ease-out" src="{{ asset('images/perpus-3.jpg') }}" width="342" height="342" alt="News 03" />
-                            </div>
-                        </a>
-                        <h3 class="text-xl font-semibold font-playfair-display mb-2">
-                            <a class="text-slate-800 hover:underline hover:decoration-blue-100" href="#0">NIDA FAHRIATI, S. Pd.I, S.I.Pust</a>
-                        </h3>
-                        <p class="text-lg text-slate-500">Bagian Pelayanan</p>
-                    </article>
+                    <!-- article -->
+                    @foreach ($pustakawan as $librarian)
+                        <article>
+                            <a class="relative block group mt-8 mb-4" href="#0">
+                                <div class="absolute inset-0 pointer-events-none border-2 border-slate-500 opacity-20 translate-x-4 -translate-y-4 group-hover:translate-x-0 group-hover:translate-y-0 transition duration-300 ease-out -z-10" aria-hidden="true"></div>
+                                <div class="overflow-hidden">
+                                    <img class="w-full aspect-square object-cover group-hover:scale-105 transition duration-700 ease-out" src="{{ Storage::url($librarian->photo) }}" width="342" height="342" alt="News 01" />
+                                </div>
+                            </a>
+                            <h3 class="text-xl font-semibold font-playfair-display mb-2">
+                                <a class="text-slate-800 hover:underline hover:decoration-blue-100" href="#0">{{ $librarian->name }}</a>
+                            </h3>
+                            <p class="text-lg text-slate-500">{{ $librarian->position }}</p>
+                        </article>
+                    @endforeach
                     
                 </div>
 
             </div>
         </div>
     </section>
-
-    <!-- Process -->
-    {{-- <section class="bg-gray-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6">
-            <div class="pt-10 pb-12 md:pt-16 md:pb-20">
-
-                <!-- Section header -->
-                <div class="pb-12 md:pb-14">
-                    <div class="relative text-center md:text-left">
-                        <svg class="fill-gray-300  hidden md:block absolute -ml-7 -mt-8" width="22" height="30" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M13.07 1.468c-.288-.134-.161-.496.199-1.005.115-.16.583-.483.693-.462.218.039.433.08.612.152.113.04 1.233 1.173 1.62 1.564.385.368.678.795.958 1.234l.841 1.337c.279.446.553.895.814 1.35.089.152.161.312.217.48l.051.17c.177.68.48 1.289.809 1.885l.242.439a.4.4 0 0 0 .179.173c.246.114 1.162 2.064 1.203 2.35.139.698.161 1.445.28 2.146l.028.118a.256.256 0 0 1-.017.196c-.148.296-.038.478.016.685.078.288.145.58.181.883.019.152-.036.331-.064.5-.028.156-.318.209-.367.18-.139-.081-.222.072-.327.133l-.08.043a.206.206 0 0 1-.037.013c-.045.004-1.215-1.096-1.449-1.349l-.032-.037-.77-1.069c-.43-.514-.737-1.116-.83-1.223-.088-.12-.091-.277-.116-.424-.01-.075-1.069-1.706-1.103-1.772-.151-.371-.426-.678-.377-1.151.01-.092-.039-.159-.078-.228-.34-.595-.563-1.25-.826-1.887-.134-.325-.333-.613-.494-.923-.03-.056-.028-.129-.044-.193l-.04-.159a.39.39 0 0 0-.032-.074c-.426-.706-.726-1.492-1.247-2.138-.112-.153-.366-1.07-.52-1.233-.079-.093.024-.652-.093-.704ZM.414 27.098c-.28.091-.397-.262-.414-.873-.006-.196.156-.74.244-.802.172-.117.342-.228.5-.3.098-.038 1.44.005 1.902-.03.446-.021.872.039 1.293.12.859.154 1.728.267 2.596.387.193.027.379.085.562.168.55.26 1.13.358 1.714.417l.386.037a.315.315 0 0 0 .21-.055c.199-.133 2.005.124 2.23.231.561.244 1.11.605 1.677.856.08.04.172.028.236.148.147.276.331.271.509.328.248.077.494.165.737.28.12.059.228.198.341.307.1.1.006.379-.037.407-.124.08-.048.23-.052.353a.583.583 0 0 1-.012.127c-.015.043-1.373.511-1.681.59l-.047.01-1.166.121c-.596.104-1.197.054-1.324.074-.13.013-.25-.07-.374-.124l-1.882-.043c-.352-.077-.728-.03-1.042-.341-.062-.06-.137-.061-.207-.069-.62-.073-1.214-.283-1.813-.465-.305-.092-.623-.129-.934-.196-.056-.012-.104-.059-.158-.086l-.132-.073a.27.27 0 0 0-.07-.023c-.74-.137-1.447-.433-2.202-.517-.175-.017-.911-.496-1.112-.512-.114-.008-.366-.487-.478-.451Z" fill-rule="evenodd" />
-                        </svg>
-                        <h2 class="h2 font-cabinet-grotesk">Panduan Proses</h2>
-                    </div>
-                </div>
-
-                <!-- Items -->
-                <div class="max-w-sm mx-auto grid gap-8 md:grid-cols-3 lg:gap-16 items-start md:max-w-none">
-
-                    <!-- 1st item -->
-                    <div class="relative flex flex-col items-center" data-aos="fade-up">
-                        <div aria-hidden="true" class="absolute h-1 border-t border-dashed border-gray-700 hidden md:block" style="width:calc(100% - 32px);left:calc(50% + 48px);top:32px;" data-aos="fade-in" data-aos-delay="200"></div>
-                        <svg class="w-16 h-16 mb-4" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                            <rect class="fill-current text-blue-600" width="64" height="64" rx="32" />
-                            <path class="stroke-current text-blue-300" stroke-width="2" stroke-linecap="square" d="M21 23h22v18H21z" fill="none" fill-rule="evenodd" />
-                            <path class="stroke-current text-blue-100" d="M26 28h12M26 32h12M26 36h5" stroke-width="2" stroke-linecap="square" />
-                        </svg>
-                        <h4 class="h4 mb-2">Pendaftaran</h4>
-                        <p class="text-lg text-gray-400 text-center">Peserta didik mengisi formulir pendaftaran melalui web / mendatangi petugas perpustakaan secara langsung.</p>
-                    </div>
-
-                    <!-- 2nd item -->
-                    <div class="relative flex flex-col items-center" data-aos="fade-up" data-aos-delay="200">
-                        <div aria-hidden="true" class="absolute h-1 border-t border-dashed border-gray-700 hidden md:block" style="width:calc(100% - 32px);left:calc(50% + 48px);top:32px;" data-aos="fade-in" data-aos-delay="400"></div>
-                        <svg class="w-16 h-16 mb-4" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                            <rect class="fill-current text-blue-600" width="64" height="64" rx="32" />
-                            <g fill="none" fill-rule="evenodd">
-                                <path class="stroke-current text-blue-300" d="M40 22a2 2 0 012 2v16a2 2 0 01-2 2H24a2 2 0 01-2-2V24a2 2 0 012-2" stroke-width="2" stroke-linecap="square" />
-                                <path class="stroke-current text-blue-100" stroke-width="2" stroke-linecap="square" d="M36 32l-4-3-4 3V22h8z" />
-                            </g>
-                        </svg>
-                        <h4 class="h4 mb-2">Peminjaman</h4>
-                        <p class="text-lg text-gray-400 text-center">Peserta didik dapat mencari buku yang tersedia melalui website, mengajukan booking pinjam, kemudian mengambil buku ke perpustakaan.</p>
-                    </div>
-
-                    <!-- 3rd item -->
-                    <div class="relative flex flex-col items-center" data-aos="fade-up" data-aos-delay="400">
-                        <svg class="w-16 h-16 mb-4" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-                            <rect class="fill-current text-blue-600" width="64" height="64" rx="32" />
-                            <path class="stroke-current text-blue-300" stroke-width="2" stroke-linecap="square" d="M21 35l4 4 12-15" fill="none" fill-rule="evenodd" />
-                            <path class="stroke-current text-blue-100" d="M42 29h-3M42 34h-7M42 39H31" stroke-width="2" stroke-linecap="square" />
-                        </svg>
-                        <h4 class="h4 mb-2">Pengembalian</h4>
-                        <p class="text-lg text-gray-400 text-center">Peserta didik harus mengembalikan buku dalam 20 hari setelah tanggal peminjaman dan bisa memperpanjang kembali jika masih dibutuhkan.</p>
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
-    </section> --}}
 
     <!-- FAQs -->
     <section class="bg-gray-50">

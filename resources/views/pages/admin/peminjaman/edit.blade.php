@@ -3,7 +3,7 @@
 
         <!-- Page header -->
         <div class="mb-8">
-            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Edit Transaksi Peminjaman ✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Edit Pustakawan ✨</h1>
         </div>
 
         <div class="border-t border-slate-200">
@@ -21,7 +21,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('admin-peminjaman.update', $item->id) }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('admin-pustakawan.update', $item->id) }}" method="post" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     <!-- Input Types -->
@@ -56,7 +56,7 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium mb-1" for="foto_bukti">Ganti Foto Bukti Peminjaman</label>
+                                <label class="block text-sm font-medium mb-1" for="foto_bukti">Ganti Foto Bukti Pustakawan</label>
                                 <input id="foto_bukti" name="foto_bukti" type="file" class="form-input text-sm w-full"/>
                             </div>
                             
