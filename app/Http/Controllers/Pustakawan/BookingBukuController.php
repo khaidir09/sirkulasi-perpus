@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Pustakawan;
 
 use App\Models\Loan;
+use App\Models\User;
 use App\Models\Bookings;
+use App\Mail\bookingExpired;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\Admin\LoanRequest;
 
 class BookingBukuController extends Controller
@@ -77,6 +80,16 @@ class BookingBukuController extends Controller
         $booking->delete();
 
         // Redirect atau kembalikan response sesuai kebutuhan
+        return redirect()->route('booking.index');
+    }
+
+    public function kirimEmail($userId)
+    {
+        $user = User::findOrFail($userId);
+        $booking = Bookings::where('users_id', $userId)->first();
+        $userName = $user->name;
+        $bookTitle = $booking->judul_buku;
+        Mail::to($user->email)->send(new bookingExpired($userName, $bookTitle));
         return redirect()->route('booking.index');
     }
 

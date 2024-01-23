@@ -92,6 +92,12 @@
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="space-x-1 flex">
+                                    <a href="{{ route('kirim-email-booking-expired', ['userId' => $booking->user->id]) }}">
+                                        <button class="text-orange-500 hover:text-orange-600 rounded-full">
+                                            <span class="sr-only">Kirim Email Booking Expired</span>
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-mail" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z" /><path d="M3 7l9 6l9 -6" /></svg>
+                                        </button>
+                                    </a>
                                     <a href="{{ route('booking.show', $booking->id) }}">
                                         <button class="text-blue-500 hover:text-blue-600 rounded-full">
                                             <span class="sr-only">Konfirmasi</span>
