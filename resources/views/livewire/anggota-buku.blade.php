@@ -72,7 +72,7 @@
                                 <div class="font-medium">{{ $book->classification->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-medium">{{ $book->jumlah - $book->loan->count() }}</div>
+                                <div class="font-medium">{{ $book->ketersediaan }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <a href="{{ route('konfirmasi-booking-buku', $book->id) }}" class="font-medium rounded-full text-center px-2.5 py-1 bg-blue-500 text-white">

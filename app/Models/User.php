@@ -86,6 +86,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function relasiPeminjaman()
     {
-        return $this->hasMany(Loan::class, 'users_id', 'id');
+        return $this->hasMany(Loan::class, 'users_id', 'id')
+            ->where('status', 'Belum dikembalikan');
     }
 }

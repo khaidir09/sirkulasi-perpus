@@ -10,6 +10,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\BookRequest;
+use Illuminate\Http\Request;
 
 class BukuController extends Controller
 {
@@ -136,11 +137,20 @@ class BukuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BookRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->all();
-
-        Book::create($data);
+        Book::create([
+            'judul' => $request->judul,
+            'nomor_induk' => $request->nomor_induk,
+            'jumlah' => $request->jumlah,
+            'ketersediaan' => $request->jumlah,
+            'tahun_terbit' => $request->tahun_terbit,
+            'asal' => $request->asal,
+            'harga' => $request->harga,
+            'publishers_id' => $request->publishers_id,
+            'classifications_id' => $request->classifications_id,
+            'pengarang' => $request->pengarang,
+        ]);
 
         return redirect()->route('buku.index');
     }

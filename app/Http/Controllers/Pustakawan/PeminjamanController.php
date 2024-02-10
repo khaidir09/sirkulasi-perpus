@@ -50,6 +50,10 @@ class PeminjamanController extends Controller
 
         Loan::create($data);
 
+        $books = Book::find($request->books_id);
+        $books->ketersediaan -= $request->kuantitas;
+        $books->save();
+
         return redirect()->route('peminjaman.index');
     }
 
@@ -112,6 +116,12 @@ class PeminjamanController extends Controller
         }
 
         $item->update($data);
+
+        if ($request->status === "Sudah dikembalikan") {
+            $books = Book::find($request->books_id);
+            $books->ketersediaan += $request->kuantitas;
+            $books->save();
+        }
 
         return redirect()->route('peminjaman.index');
     }

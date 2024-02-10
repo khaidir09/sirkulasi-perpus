@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Pustakawan;
 
+use App\Models\Book;
 use App\Models\Loan;
 use App\Models\User;
 use App\Models\Bookings;
@@ -44,19 +45,7 @@ class BookingBukuController extends Controller
     public function store(LoanRequest $request)
     {
 
-        $imageName = time() . '.' . $request->foto_bukti->extension();
-        $uploadedImage = $request->foto_bukti->storeAs('assets/peminjaman', $imageName);;
-        $imagePath = 'assets/peminjaman/' . $imageName;
-
-        Loan::create([
-            'users_id' => $request->users_id,
-            'books_id' => $request->books_id,
-            'status' => $request->status,
-            'kuantitas' => $request->kuantitas,
-            'foto_bukti' => $imagePath
-        ]);
-
-        return redirect()->route('peminjaman.index');
+        //
     }
 
     public function confirmBooking($id, LoanRequest $request)
@@ -75,6 +64,10 @@ class BookingBukuController extends Controller
             'kuantitas' => $request->kuantitas,
             'foto_bukti' => $uploadedImage
         ]);
+
+        $books = Book::find($request->books_id);
+        $books->ketersediaan -= $request->kuantitas;
+        $books->save();
 
         // Hapus data booking dari tabel Bookings
         $booking->delete();

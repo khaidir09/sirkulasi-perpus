@@ -75,20 +75,13 @@
                     <form action="{{ route('peminjaman.update', $item->id) }}" method="post">
                         @method('PUT')
                         @csrf
+                        <input type="hidden" name="books_id" value="{{ $item->books_id }}">
+                        <input type="hidden" name="kuantitas" value="1">
+                        <input type="hidden" name="status" value="Sudah dikembalikan">
                         <div class="px-5 py-4">
-                            <div class="space-y-3">
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="status">Status <span class="text-rose-500">*</span></label>
-                                    <select id="status" name="status" class="form-select text-sm py-2 w-full">
-                                        {{-- <option selected value="{{ $item->garansi }}">{{ $item->garansi }}</option> --}}
-                                        <option value="Belum dikembalikan">Belum dikembalikan</option>
-                                        <option value="Sudah dikembalikan">Sudah dikembalikan</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="status">Tanggal Pengembalian <span class="text-rose-500">*</span></label>
-                                    <input id="tgl_pengembalian" name="tgl_pengembalian" class="form-input text-sm w-full" type="date" />
-                                </div>
+                            <div>
+                                <label class="block text-sm font-medium mb-1" for="status">Tanggal Pengembalian <span class="text-rose-500">*</span></label>
+                                <input id="tgl_pengembalian" name="tgl_pengembalian" class="form-input text-sm w-full" type="date" />
                             </div>
                         </div>
                         <!-- Modal footer -->
