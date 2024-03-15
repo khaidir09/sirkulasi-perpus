@@ -52,9 +52,11 @@
 
                             <div>
                                 <label class="block text-sm font-medium mb-1" for="foto_bukti">Upload Foto Bukti Peminjaman</label>
-                                <input id="foto_bukti" name="foto_bukti" type="file" class="form-input w-full" required/>
+                                <video id="video" width="400" height="300" autoplay></video>
+                                <button id="snap">Ambil Gambar</button>
+                                <canvas id="canvas" width="400" height="300"></canvas>
+                                <img id="photo" src="#" alt="Gambar" style="display:none;">
                             </div>
-                            
                         </div>
                         <div class="flex justify-end">
                             <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
@@ -63,9 +65,37 @@
                         </div>
                     </div>
                 </form>
+
             </div>
 
         </div>
 
     </div>
+
+    <script>
+    // Mengambil elemen
+    var video = document.getElementById('video');
+    var canvas = document.getElementById('canvas');
+    var photo = document.getElementById('photo');
+    var snapButton = document.getElementById('snap');
+
+    // Meminta izin akses kamera saat halaman dimuat
+    document.addEventListener('DOMContentLoaded', function() {
+        navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+            video.srcObject = stream;
+            video.play();
+        })
+        .catch(function(err) {
+            console.log("Error: " + err);
+        });
+    });
+
+    // Ambil gambar saat tombol ditekan
+    snapButton.addEventListener('click', function() {
+        canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+        photo.setAttribute('src', canvas.toDataURL('image/png'));
+        photo.style.display = 'block';
+    });
+    </script>
 </x-app-layout>
