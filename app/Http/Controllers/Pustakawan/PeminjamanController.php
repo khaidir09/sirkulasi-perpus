@@ -46,8 +46,6 @@ class PeminjamanController extends Controller
     {
         $data = $request->all();
 
-        $data['foto_bukti'] = $request->file('foto_bukti')->store('assets/peminjaman', 'public');
-
         // Simpan gambar dari kamera
         $imageData = $request->input('image'); // Diambil dari data URL yang dikirim melalui AJAX
         $filteredData = substr($imageData, strpos($imageData, ",") + 1);

@@ -53,7 +53,7 @@
                             <div>
                                 <label class="block text-sm font-medium mb-1" for="foto_bukti">Foto Bukti Peminjaman</label>
                                 <video id="video" width="400" height="300" autoplay></video>
-                                <button class="btn bg-gray-500 hover:bg-gray-600 text-white mt-1" id="snap">
+                                <button class="btn bg-gray-500 hover:bg-gray-600 text-white my-1" id="snap">
                                     Ambil Gambar
                                 </button>
                                 <canvas id="canvas" width="400" height="300" style="display:none;"></canvas>
