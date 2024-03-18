@@ -48,6 +48,15 @@ class PeminjamanController extends Controller
 
         $data['foto_bukti'] = $request->file('foto_bukti')->store('assets/peminjaman', 'public');
 
+        // Simpan gambar dari kamera
+        $imageData = $request->input('image'); // Diambil dari data URL yang dikirim melalui AJAX
+        $filteredData = substr($imageData, strpos($imageData, ",") + 1);
+        $decodedData = base64_decode($filteredData);
+        $fileName = 'gambar_' . uniqid() . '.png';
+        $filePath = 'public/storage/assets/peminjaman' . $fileName; // Sesuaikan dengan direktori penyimpanan Anda
+        file_put_contents($filePath, $decodedData);
+        $data['foto_bukti'] = $fileName;
+
         Loan::create($data);
 
         $books = Book::find($request->books_id);

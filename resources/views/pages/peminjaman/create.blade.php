@@ -51,9 +51,11 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium mb-1" for="foto_bukti">Upload Foto Bukti Peminjaman</label>
+                                <label class="block text-sm font-medium mb-1" for="foto_bukti">Foto Bukti Peminjaman</label>
                                 <video id="video" width="400" height="300" autoplay></video>
-                                <button id="snap">Ambil Gambar</button>
+                                <button class="btn bg-gray-500 hover:bg-gray-600 text-white mt-1" id="snap">
+                                    Ambil Gambar
+                                </button>
                                 <canvas id="canvas" width="400" height="300"></canvas>
                                 <img id="photo" src="#" alt="Gambar" style="display:none;">
                             </div>
