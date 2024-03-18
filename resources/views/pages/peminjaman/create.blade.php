@@ -21,7 +21,7 @@
                     </div>
                 @endif
 
-                <form action="{{ route('peminjaman.store') }}" method="post" enctype="multipart/form-data">
+                <form id="loanForm" action="{{ route('peminjaman.store') }}" method="post">
                     @csrf
                     <input id="status" name="status" class="form-input w-full" type="hidden" value="Belum dikembalikan" />
                     <input id="kuantitas" name="kuantitas" class="form-input w-full px-2 py-1" type="hidden" value="1"/>
@@ -56,7 +56,8 @@
                                 <button class="btn bg-gray-500 hover:bg-gray-600 text-white mt-1" id="snap">
                                     Ambil Gambar
                                 </button>
-                                <canvas id="canvas" width="400" height="300"></canvas>
+                                <canvas id="canvas" width="400" height="300" style="display:none;"></canvas>
+                                <input type="hidden" id="imageInput" name="image">
                                 <img id="photo" src="#" alt="Gambar" style="display:none;">
                             </div>
                         </div>
@@ -80,6 +81,8 @@
     var canvas = document.getElementById('canvas');
     var photo = document.getElementById('photo');
     var snapButton = document.getElementById('snap');
+    var imageInput = document.getElementById('imageInput');
+    var loanForm = document.getElementById('loanForm');
 
     // Meminta izin akses kamera saat halaman dimuat
     document.addEventListener('DOMContentLoaded', function() {
@@ -96,8 +99,32 @@
     // Ambil gambar saat tombol ditekan
     snapButton.addEventListener('click', function() {
         canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-        photo.setAttribute('src', canvas.toDataURL('image/png'));
+        var dataURL = canvas.toDataURL('image/png');
+        photo.setAttribute('src', dataURL);
         photo.style.display = 'block';
+        imageInput.value = dataURL; // Set nilai input tersembunyi dengan data gambar
+    });
+
+    // Submit formulir menggunakan AJAX
+    loanForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Hindari pengiriman formulir standar
+
+        var formData = new FormData(loanForm);
+
+        // Kirim data formulir ke server menggunakan AJAX
+        fetch(loanForm.action, {
+            method: loanForm.method,
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Tanggapan dari server
+            // Handle response as needed
+        })
+        .catch(error => {
+            console.error('Terjadi kesalahan:', error);
+            // Handle errors as needed
+        });
     });
     </script>
 </x-app-layout>
