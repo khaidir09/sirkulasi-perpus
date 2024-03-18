@@ -44,24 +44,39 @@ class PeminjamanController extends Controller
      */
     public function store(LoanRequest $request)
     {
-        $data = $request->all();
+        try {
+            // Validasi data gambar
+            $request->validate([
+                'foto_bukti' => 'required|image', // Ubah aturan validasi sesuai kebutuhan Anda
+            ]);
 
-        // Simpan gambar dari kamera
-        $imageData = $request->input('foto_bukti'); // Diambil dari data URL yang dikirim melalui AJAX
-        $filteredData = substr($imageData, strpos($imageData, ",") + 1);
-        $decodedData = base64_decode($filteredData);
-        $fileName = 'gambar_' . uniqid() . '.png';
-        $filePath = 'public/storage/assets/peminjaman' . $fileName; // Sesuaikan dengan direktori penyimpanan Anda
-        file_put_contents($filePath, $decodedData);
-        $data['foto_bukti'] = $fileName;
+            // Simpan gambar dari kamera
+            $imageData = $request->input('foto_bukti'); // Diambil dari data URL yang dikirim melalui AJAX
+            $filteredData = substr($imageData, strpos($imageData, ",") + 1);
+            $decodedData = base64_decode($filteredData);
+            $fileName = 'gambar_' . uniqid() . '.png';
+            $filePath = 'assets/peminjaman' . $fileName; // Sesuaikan dengan direktori penyimpanan Anda
+            file_put_contents($filePath, $decodedData);
 
-        Loan::create($data);
+            // Simpan data peminjaman ke database
+            $loan = new Loan();
+            $loan->status = 'Belum dikembalikan';
+            $loan->kuantitas = 1;
+            $loan->foto_bukti = $fileName;
+            // Tambahkan informasi lain yang dibutuhkan untuk model Loan
+            $loan->users_id = $request->users_id;
+            $loan->books_id = $request->books_id;
+            $loan->save();
 
-        $books = Book::find($request->books_id);
-        $books->ketersediaan -= $request->kuantitas;
-        $books->save();
+            // Ubah ketersediaan buku
+            $book = Book::find($request->books_id);
+            $book->ketersediaan -= 1;
+            $book->save();
 
-        return redirect()->route('peminjaman.index');
+            return response()->json(['message' => 'Data peminjaman berhasil disimpan'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data peminjaman'], 500);
+        }
     }
 
     public function status($id)
