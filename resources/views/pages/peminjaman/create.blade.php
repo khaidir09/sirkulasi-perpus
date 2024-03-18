@@ -62,8 +62,8 @@
                             </div>
                         </div>
                         <div class="flex justify-end">
-                            <button class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                                <span class="hidden xs:block">Simpan</span>
+                            <button type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
+                                <span>Simpan</span>
                             </button>
                         </div>
                     </div>
