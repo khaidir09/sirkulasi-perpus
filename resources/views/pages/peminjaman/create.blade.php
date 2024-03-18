@@ -57,7 +57,7 @@
                                     Ambil Gambar
                                 </button>
                                 <canvas id="canvas" width="400" height="300" style="display:none;"></canvas>
-                                <input type="hidden" id="imageInput" name="image">
+                                <input type="hidden" id="imageInput" name="foto_bukti">
                                 <img id="photo" src="#" alt="Gambar" style="display:none;">
                             </div>
                         </div>

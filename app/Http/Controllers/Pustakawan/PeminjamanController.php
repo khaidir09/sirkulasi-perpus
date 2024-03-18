@@ -47,7 +47,7 @@ class PeminjamanController extends Controller
         $data = $request->all();
 
         // Simpan gambar dari kamera
-        $imageData = $request->input('image'); // Diambil dari data URL yang dikirim melalui AJAX
+        $imageData = $request->input('foto_bukti'); // Diambil dari data URL yang dikirim melalui AJAX
         $filteredData = substr($imageData, strpos($imageData, ",") + 1);
         $decodedData = base64_decode($filteredData);
         $fileName = 'gambar_' . uniqid() . '.png';
