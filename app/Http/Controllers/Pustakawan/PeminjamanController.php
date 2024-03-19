@@ -42,7 +42,7 @@ class PeminjamanController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LoanRequest $request)
+    public function store(Request $request)
     {
         try {
             // Validasi data gambar
