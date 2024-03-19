@@ -55,7 +55,7 @@ class PeminjamanController extends Controller
             $filteredData = substr($imageData, strpos($imageData, ",") + 1);
             $decodedData = base64_decode($filteredData);
             $fileName = 'gambar_' . uniqid() . '.png';
-            $filePath = 'assets/peminjaman' . $fileName; // Sesuaikan dengan direktori penyimpanan Anda
+            $filePath = '/public/storage/assets/peminjaman' . $fileName; // Sesuaikan dengan direktori penyimpanan Anda
             file_put_contents($filePath, $decodedData);
 
             // Simpan data peminjaman ke database

@@ -107,8 +107,6 @@
 
     // Submit formulir menggunakan AJAX
     loanForm.addEventListener('submit', function(event) {
-        event.preventDefault(); // Hindari pengiriman formulir standar
-
         var formData = new FormData(loanForm);
 
         // Kirim data formulir ke server menggunakan AJAX
