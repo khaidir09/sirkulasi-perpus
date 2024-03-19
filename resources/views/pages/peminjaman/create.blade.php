@@ -104,25 +104,5 @@
         photo.style.display = 'block';
         imageInput.value = dataURL; // Set nilai input tersembunyi dengan data gambar
     });
-
-    // Submit formulir menggunakan AJAX
-    loanForm.addEventListener('submit', function(event) {
-        var formData = new FormData(loanForm);
-
-        // Kirim data formulir ke server menggunakan AJAX
-        fetch(loanForm.action, {
-            method: loanForm.method,
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data); // Tanggapan dari server
-            // Handle response as needed
-        })
-        .catch(error => {
-            console.error('Terjadi kesalahan:', error);
-            // Handle errors as needed
-        });
-    });
     </script>
 </x-app-layout>
