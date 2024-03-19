@@ -45,10 +45,6 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         try {
-            // Validasi data gambar
-            $request->validate([
-                'foto_bukti' => 'required|image', // Ubah aturan validasi sesuai kebutuhan Anda
-            ]);
 
             // Simpan gambar dari kamera
             $imageData = $request->input('foto_bukti'); // Diambil dari data URL yang dikirim melalui AJAX
