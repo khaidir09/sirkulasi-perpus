@@ -45,13 +45,16 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         try {
+            $request->validate([
+                'foto_bukti' => 'required|image',
+            ]);
 
             // Simpan gambar dari kamera
             $imageData = $request->input('foto_bukti'); // Diambil dari data URL yang dikirim melalui AJAX
             $filteredData = substr($imageData, strpos($imageData, ",") + 1);
             $decodedData = base64_decode($filteredData);
             $fileName = 'gambar_' . uniqid() . '.png';
-            $filePath = '/public/storage/assets/peminjaman' . $fileName; // Sesuaikan dengan direktori penyimpanan Anda
+            $filePath = '/public/storage/assets/peminjaman/' . $fileName;
             file_put_contents($filePath, $decodedData);
 
             // Simpan data peminjaman ke database
@@ -59,7 +62,6 @@ class PeminjamanController extends Controller
             $loan->status = 'Belum dikembalikan';
             $loan->kuantitas = 1;
             $loan->foto_bukti = $fileName;
-            // Tambahkan informasi lain yang dibutuhkan untuk model Loan
             $loan->users_id = $request->users_id;
             $loan->books_id = $request->books_id;
             $loan->save();
@@ -71,7 +73,7 @@ class PeminjamanController extends Controller
 
             return response()->json(['message' => 'Data peminjaman berhasil disimpan'], 200);
         } catch (\Exception $e) {
-            return response()->json(['message' => 'Terjadi kesalahan saat menyimpan data peminjaman'], 500);
+            return response()->json(['message' => $e], 500);
         }
     }
 

@@ -21,7 +21,7 @@
                     </div>
                 @endif
 
-                <form id="loanForm" action="{{ route('peminjaman.store') }}" method="post">
+                <form id="loanForm" action="{{ route('peminjaman.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     <input id="status" name="status" class="form-input w-full" type="hidden" value="Belum dikembalikan" />
                     <input id="kuantitas" name="kuantitas" class="form-input w-full px-2 py-1" type="hidden" value="1"/>
@@ -103,6 +103,26 @@
         photo.setAttribute('src', dataURL);
         photo.style.display = 'block';
         imageInput.value = dataURL; // Set nilai input tersembunyi dengan data gambar
+    });
+
+    // Submit formulir menggunakan AJAX
+    loanForm.addEventListener('submit', function(event) {
+        var formData = new FormData(loanForm);
+
+        // Kirim data formulir ke server menggunakan AJAX
+        fetch(loanForm.action, {
+            method: loanForm.method,
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // Tanggapan dari server
+            // Handle response as needed
+        })
+        .catch(error => {
+            console.error('Terjadi kesalahan:', error);
+            // Handle errors as needed
+        });
     });
     </script>
 </x-app-layout>
