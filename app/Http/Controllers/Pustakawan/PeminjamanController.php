@@ -7,6 +7,7 @@ use App\Models\Loan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\LoanRequest;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -85,7 +86,7 @@ class PeminjamanController extends Controller
         $fileName = 'gambar_' . uniqid() . ".{$type}";
 
         try {
-            $data['foto_bukti'] = $request->file('foto_bukti')->store('assets/peminjaman', 'public' . $fileName);
+            Storage::disk('local')->put('/public/storage/assets/peminjaman' . $fileName, $data);
         } catch (\Exception $e) {
             return response([
                 'message' => $e->getMessage(),
