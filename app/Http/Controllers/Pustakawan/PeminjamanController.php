@@ -85,7 +85,7 @@ class PeminjamanController extends Controller
         $fileName = 'gambar_' . uniqid() . ".{$type}";
 
         try {
-            $data['foto_bukti'] = $file->store('assets/peminjaman', 'public' . $fileName);
+            $data['foto_bukti'] = $request->file('foto_bukti')->store('assets/peminjaman', 'public' . $fileName);
         } catch (\Exception $e) {
             return response([
                 'message' => $e->getMessage(),
