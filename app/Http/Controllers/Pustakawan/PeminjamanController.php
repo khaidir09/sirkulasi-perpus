@@ -46,6 +46,8 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
         //
+        $peminjaman = $request->all();
+
         $file = $request->input('foto_bukti');
 
         if (!$file) {
@@ -86,7 +88,7 @@ class PeminjamanController extends Controller
         $fileName = 'gambar_' . uniqid() . ".{$type}";
 
         try {
-            Storage::disk('local')->put('/public/storage/assets/peminjaman' . $fileName, $data);
+            Storage::disk('local')->put('public/storage/assets/peminjaman/' . $fileName, $data);
         } catch (\Exception $e) {
             return response([
                 'message' => $e->getMessage(),
@@ -94,15 +96,9 @@ class PeminjamanController extends Controller
             ], 400);
         }
 
-        $resp = [
-            'file' => $file,
-            'modified_file' => $fileName,
-            'status' => 'success',
-            'success' => true,
-            'message' => 'File uploaded successfully',
-        ];
+        Loan::create($peminjaman);
 
-        return response($resp, 200);
+        return redirect()->route('peminjaman.index');
     }
 
     public function status($id)
