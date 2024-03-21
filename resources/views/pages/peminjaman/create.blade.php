@@ -53,18 +53,13 @@
                             <div>
                                 <label class="block text-sm font-medium mb-1" for="foto_bukti">Foto Bukti Peminjaman</label>
                                 <video id="video" width="400" height="300" autoplay></video>
-                                <button class="btn bg-gray-500 hover:bg-gray-600 text-white my-1" id="snap">
-                                    Ambil Gambar
+                                <button type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white mt-1 mb-1" id="snap">
+                                    Ambil Gambar & Simpan Data
                                 </button>
                                 <canvas id="canvas" width="400" height="300" style="display:none;"></canvas>
                                 <input type="hidden" id="imageInput" name="foto_bukti">
                                 <img id="photo" src="#" alt="Gambar" style="display:none;">
                             </div>
-                        </div>
-                        <div class="flex justify-end">
-                            <button type="submit" class="btn bg-indigo-500 hover:bg-indigo-600 text-white">
-                                <span>Simpan</span>
-                            </button>
                         </div>
                     </div>
                 </form>
@@ -103,26 +98,6 @@
         photo.setAttribute('src', dataURL);
         photo.style.display = 'block';
         imageInput.value = dataURL; // Set nilai input tersembunyi dengan data gambar
-    });
-
-    // Submit formulir menggunakan AJAX
-    loanForm.addEventListener('submit', function(event) {
-        var formData = new FormData(loanForm);
-
-        // Kirim data formulir ke server menggunakan AJAX
-        fetch(loanForm.action, {
-            method: loanForm.method,
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data); // Tanggapan dari server
-            // Handle response as needed
-        })
-        .catch(error => {
-            console.error('Terjadi kesalahan:', error);
-            // Handle errors as needed
-        });
     });
     </script>
 </x-app-layout>
