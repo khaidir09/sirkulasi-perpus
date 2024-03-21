@@ -45,7 +45,6 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $peminjaman = $request->all();
 
         $file = $request->input('foto_bukti');
@@ -95,6 +94,8 @@ class PeminjamanController extends Controller
                 'succes' => false
             ], 400);
         }
+
+        $peminjaman['foto_bukti'] = $fileName;
 
         Loan::create($peminjaman);
 
