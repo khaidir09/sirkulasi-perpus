@@ -85,10 +85,10 @@ class PeminjamanController extends Controller
             ], 400);
         }
 
-        $fileName = 'gambar_' . uniqid() . ".{$type}";
+        $fileName = 'assets/peminjaman/' . uniqid() . ".{$type}";
 
         try {
-            Storage::disk('local')->put('public/storage/assets/peminjaman/' . $fileName, $data);
+            Storage::disk('local')->put('public/' . $fileName, $data);
         } catch (\Exception $e) {
             return response([
                 'message' => $e->getMessage(),

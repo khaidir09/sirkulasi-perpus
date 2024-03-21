@@ -21,7 +21,7 @@
                     </div>
                 @endif
 
-                <form id="loanForm" action="{{ route('peminjaman.store') }}" method="post" enctype="multipart/form-data">
+                <form id="loanForm" action="{{ route('peminjaman.store') }}" method="post">
                     @csrf
                     <input id="status" name="status" class="form-input w-full" type="hidden" value="Belum dikembalikan" />
                     <input id="kuantitas" name="kuantitas" class="form-input w-full px-2 py-1" type="hidden" value="1"/>
