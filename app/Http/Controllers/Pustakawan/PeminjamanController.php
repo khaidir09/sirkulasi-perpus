@@ -44,37 +44,64 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $request->validate([
-                'foto_bukti' => 'required|image',
-            ]);
+        //
+        $file = $request->input('foto_bukti');
 
-            // Simpan gambar dari kamera
-            $imageData = $request->input('foto_bukti'); // Diambil dari data URL yang dikirim melalui AJAX
-            $filteredData = substr($imageData, strpos($imageData, ",") + 1);
-            $decodedData = base64_decode($filteredData);
-            $fileName = 'gambar_' . uniqid() . '.png';
-            $filePath = '/public/storage/assets/peminjaman/' . $fileName;
-            file_put_contents($filePath, $decodedData);
-
-            // Simpan data peminjaman ke database
-            $loan = new Loan();
-            $loan->status = 'Belum dikembalikan';
-            $loan->kuantitas = 1;
-            $loan->foto_bukti = $fileName;
-            $loan->users_id = $request->users_id;
-            $loan->books_id = $request->books_id;
-            $loan->save();
-
-            // Ubah ketersediaan buku
-            $book = Book::find($request->books_id);
-            $book->ketersediaan -= 1;
-            $book->save();
-
-            return response()->json(['message' => 'Data peminjaman berhasil disimpan'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['message' => $e], 500);
+        if (!$file) {
+            return response([
+                'message' => 'file not found',
+                'succes' => false
+            ], 400);
         }
+
+        $data = null;
+
+        if (preg_match('/^data:image\/(\w+);base64,/', $file, $type)) {
+            $data = substr($file, strpos($file, ',') + 1);
+            $type = strtolower($type[1]); // jpg, png, gif
+
+            if (!in_array($type, ['jpg', 'jpeg', 'png'])) {
+                return response([
+                    'message' => 'invalid image type',
+                    'succes' => false
+                ], 400);
+            }
+            $data = str_replace(' ', '+', $data);
+            $data = base64_decode($data);
+
+            if ($data === false) {
+                return response([
+                    'message' => 'invalid base64 string',
+                    'succes' => false
+                ], 400);
+            }
+        } else {
+            return response([
+                'message' => 'invalid uri string',
+                'succes' => false
+            ], 400);
+        }
+
+        $fileName = 'gambar_' . uniqid() . ".{$type}";
+
+        try {
+            $data['foto_bukti'] = $file->store('assets/peminjaman', 'public' . $fileName);
+        } catch (\Exception $e) {
+            return response([
+                'message' => $e->getMessage(),
+                'succes' => false
+            ], 400);
+        }
+
+        $resp = [
+            'file' => $file,
+            'modified_file' => $fileName,
+            'status' => 'success',
+            'success' => true,
+            'message' => 'File uploaded successfully',
+        ];
+
+        return response($resp, 200);
     }
 
     public function status($id)
