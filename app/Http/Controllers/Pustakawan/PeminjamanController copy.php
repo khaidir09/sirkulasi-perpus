@@ -7,7 +7,6 @@ use App\Models\Loan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Admin\LoanRequest;
 use RealRashid\SweetAlert\Facades\Alert;
 
@@ -45,96 +44,37 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        $peminjaman = $request->all();
-
-        $file = $request->input('foto_bukti');
-
-        if (!$file) {
-            return response([
-                'message' => 'file not found',
-                'succes' => false
-            ], 400);
-        }
-
-        $data = null;
-
-        if (preg_match('/^data:image\/(\w+);base64,/', $file, $type)) {
-            $data = substr($file, strpos($file, ',') + 1);
-            $type = strtolower($type[1]); // jpg, png, gif
-
-            if (!in_array($type, ['jpg', 'jpeg', 'png'])) {
-                return response([
-                    'message' => 'invalid image type',
-                    'succes' => false
-                ], 400);
-            }
-            $data = str_replace(' ', '+', $data);
-            $data = base64_decode($data);
-
-            if ($data === false) {
-                return response([
-                    'message' => 'invalid base64 string',
-                    'succes' => false
-                ], 400);
-            }
-        } else {
-            return response([
-                'message' => 'invalid uri string',
-                'succes' => false
-            ], 400);
-        }
-
-        $fileName = 'assets/peminjaman/' . uniqid() . ".{$type}";
-
         try {
-            Storage::disk('local')->put('public/' . $fileName, $data);
+            $request->validate([
+                'foto_bukti' => 'required|image',
+            ]);
+
+            // Simpan gambar dari kamera
+            $imageData = $request->input('foto_bukti'); // Diambil dari data URL yang dikirim melalui AJAX
+            $filteredData = substr($imageData, strpos($imageData, ",") + 1);
+            $decodedData = base64_decode($filteredData);
+            $fileName = 'gambar_' . uniqid() . '.png';
+            $filePath = '/public/storage/assets/peminjaman/' . $fileName;
+            file_put_contents($filePath, $decodedData);
+
+            // Simpan data peminjaman ke database
+            $loan = new Loan();
+            $loan->status = 'Belum dikembalikan';
+            $loan->kuantitas = 1;
+            $loan->foto_bukti = $fileName;
+            $loan->users_id = $request->users_id;
+            $loan->books_id = $request->books_id;
+            $loan->save();
+
+            // Ubah ketersediaan buku
+            $book = Book::find($request->books_id);
+            $book->ketersediaan -= 1;
+            $book->save();
+
+            return response()->json(['message' => 'Data peminjaman berhasil disimpan'], 200);
         } catch (\Exception $e) {
-            return response([
-                'message' => $e->getMessage(),
-                'succes' => false
-            ], 400);
+            return response()->json(['message' => $e], 500);
         }
-
-        $peminjaman['foto_bukti'] = $fileName;
-
-        $buku = Book::find($request->books_id);
-
-        // Ambil index_number buku yang dipilih
-        $indexNumber = $buku->nomor_induk;
-
-        // Ambil nilai awal dan akhir dari index_number
-        list($start, $end) = explode('-', $indexNumber);
-
-        // Cari nomor terakhir yang digunakan untuk index_number ini
-        $lastLoan = Loan::whereBetween('kode_buku', ["$start", "$end"])->orderByDesc('kode_buku')->first();
-
-        // Jika tidak ada peminjaman sebelumnya untuk index_number ini, gunakan nomor pertama
-        if (!$lastLoan) {
-            $nextNumber = $start;
-        } else {
-            // Ambil nomor terakhir dari index terakhir
-            $lastNumber = intval($lastLoan->kode_buku);
-            // Tingkatkan nomor dengan 1
-            $nextNumber = $lastNumber + 1;
-        }
-
-        // Jika nomor sudah melebihi nilai akhir, kembalikan pesan kesalahan
-        if ($nextNumber > intval($end)) {
-            return response()->json(['message' => 'Semua buku dari kategori ini sudah terpinjam'], 400);
-        }
-
-        // Bentuk book_code baru
-        $kodeBuku = $nextNumber;
-
-        $peminjaman['kode_buku'] = $kodeBuku;
-
-        Loan::create($peminjaman);
-
-        $books = Book::find($request->books_id);
-        $books->ketersediaan -= $request->kuantitas;
-        $books->save();
-
-        return redirect()->route('peminjaman.index');
     }
 
     public function status($id)

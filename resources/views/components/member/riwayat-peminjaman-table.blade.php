@@ -17,6 +17,9 @@
                             <div class="font-semibold text-left">Judul Buku</div>
                         </th>
                         <th class="p-2">
+                            <div class="font-semibold text-left">Kode Buku</div>
+                        </th>
+                        <th class="p-2">
                             <div class="font-semibold text-left">Tanggal Pinjam</div>
                         </th>
                         <th class="p-2">
@@ -37,6 +40,9 @@
                             </td>
                             <td class="p-2">
                                 <div class="text-slate-800">{{ $item->book->judul }}</div>
+                            </td>
+                            <td class="p-2">
+                                <div class="text-slate-800">{{ $item->kode_buku }}</div>
                             </td>
                             <td class="p-2">
                                 <div>{{ \Carbon\Carbon::parse($item->created_at)->format('d/m/Y') }}</div>

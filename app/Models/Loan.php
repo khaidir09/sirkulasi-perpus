@@ -16,7 +16,8 @@ class Loan extends Model
         'foto_bukti',
         'kuantitas',
         'created_at',
-        'tgl_pengembalian'
+        'tgl_pengembalian',
+        'kode_buku'
     ];
 
     public function user()
