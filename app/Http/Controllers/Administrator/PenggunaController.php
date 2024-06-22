@@ -31,7 +31,7 @@ class PenggunaController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages/admin/pengguna/create');
     }
 
     /**
@@ -42,7 +42,15 @@ class PenggunaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $data['password'] = bcrypt($request->password);
+
+        User::create($data);
+
+        Alert::success('Berhasil', 'Data pengguna pustakawan berhasil ditambahkan');
+
+        return redirect()->route('admin-list-pengguna.index');
     }
 
     /**

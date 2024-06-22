@@ -3,7 +3,7 @@
 
         <!-- Page header -->
         <div class="mb-8">
-            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Edit Data Pengguna (Pustakawan)✨</h1>
+            <h1 class="text-2xl md:text-3xl text-slate-800 font-bold">Input Data Pengguna (Pustakawan) ✨</h1>
         </div>
 
         <div class="border-t border-slate-200">
@@ -34,9 +34,10 @@
                     </div>
                 @endif
 
-                <form action="{{ route('admin-list-pengguna.update', $item->id) }}" method="post">
-                    @method('PUT')
+                <form action="{{ route('admin-list-pengguna.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden" name="role" value="Pustakawan">
+                    <input type="hidden" name="created_by" value="Admin">
                     <!-- Input Types -->
                     <div>
                         <div class="grid gap-5 md:grid-cols-3 mb-5">
@@ -45,7 +46,7 @@
                                 <!-- Start -->
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="name">Nama Lengkap</label>
-                                    <input id="name" name="name" class="form-input w-full" type="text" value="{{ $item->name }}" />
+                                    <input id="name" name="name" class="form-input w-full" type="text" />
                                 </div>
                                 <!-- End -->
                             </div>
@@ -54,7 +55,7 @@
                                 <!-- Start -->
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="alamat">Alamat</label>
-                                    <input id="alamat" name="alamat" class="form-input w-full" type="text" value="{{ $item->alamat }}" />
+                                    <input id="alamat" name="alamat" class="form-input w-full" type="text" required />
                                 </div>
                                 <!-- End -->
                             </div>
@@ -63,49 +64,28 @@
                                 <!-- Start -->
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="nomor_hp">Nomor HP/WA</label>
-                                    <input id="nomor_hp" name="nomor_hp" class="form-input w-full" type="number" value="{{ $item->nomor_hp }}" />
+                                    <input id="nomor_hp" name="nomor_hp" class="form-input w-full" type="number" />
                                 </div>
                                 <!-- End -->
                             </div>
                             
                         </div>
-                        <div class="grid gap-5 md:grid-cols-4 mb-5">
+                        <div class="grid gap-5 md:grid-cols-2 mb-5">
                             
-                            <div>
-                                <!-- Start -->
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="tempat_lahir">Tempat Lahir</label>
-                                    <input id="tempat_lahir" name="tempat_lahir" class="form-input w-full" type="text" value="{{ $item->tempat_lahir }}" />
-                                </div>
-                                <!-- End -->
-                            </div>
-                            
-                            <div>
-                                <!-- Start -->
-                                <div>
-                                    <label class="block text-sm font-medium mb-1" for="tgl_lahir">Tanggal Lahir</label>
-                                    <input id="tgl_lahir" name="tgl_lahir" class="form-input w-full" type="date" value="{{ $item->tgl_lahir }}" />
-                                </div>
-                                <!-- End -->
-                            </div>
-
                             <div>
                                 <!-- Start -->
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="email">Akun Email</label>
-                                    <input id="email" name="email" class="form-input w-full" type="email" value="{{ $item->email }}"/>
+                                    <input id="email" name="email" class="form-input w-full" type="email" placeholder="example@gmail.com"/>
                                 </div>
                                 <!-- End -->
                             </div>
-
+                            
                             <div>
                                 <!-- Start -->
                                 <div>
                                     <label class="block text-sm font-medium mb-1" for="password">Kata Sandi</label>
-                                    <input id="password" name="password" class="form-input w-full" type="password" />
-                                    <div class="text-xs mt-2 text-slate-600">
-                                        Jika tidak inggin mengganti kata sandi, silahkan kosongkan saja
-                                    </div>
+                                    <input id="password" name="password" class="form-input w-full" type="password" required />
                                 </div>
                                 <!-- End -->
                             </div>
